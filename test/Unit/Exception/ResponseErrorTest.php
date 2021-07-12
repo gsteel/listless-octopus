@@ -24,6 +24,7 @@ class ResponseErrorTest extends TestCase
     {
         parent::setUp();
 
+        /** @psalm-suppress InternalClass */
         $this->error = new class ('STATIC MESSAGE', 0) extends ResponseError
         {
             public static function new(RequestInterface $request, ResponseInterface $response): self
