@@ -10,12 +10,15 @@ use GSteel\Listless\Octopus\Exception\MemberAlreadySubscribed;
 use GSteel\Listless\Octopus\Exception\MemberNotFound;
 use GSteel\Listless\Octopus\Exception\RequestFailure;
 use GSteel\Listless\Octopus\Util\Json;
+use GSteel\Listless\Octopus\Value\SubscriptionStatus;
 use GSteel\Listless\Value\EmailAddress;
 use GSteel\Listless\Value\ListId;
 use Laminas\Diactoros\StreamFactory;
 use Laminas\Diactoros\UriFactory;
 use Psr\Http\Client\ClientExceptionInterface;
+use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Throwable;
 
 use function assert;
@@ -224,5 +227,66 @@ class BaseClientTest extends RemoteIntegrationTestCase
             EmailAddress::fromString(MockServer::IS_SUBSCRIBED_WILL_CAUSE_INVALID_API_KEY),
             ListId::fromString(MockServer::VALID_LIST)
         );
+    }
+
+    public function testThatChangingStatusToUnsubscribedIsSuccessful(): void
+    {
+        $email = EmailAddress::fromString(MockServer::EMAIL_IS_SUBSCRIBED);
+        $contact = $this->client->changeSubscriptionStatus(
+            $email,
+            ListId::fromString(MockServer::VALID_LIST),
+            SubscriptionStatus::unsubscribed()
+        );
+
+        self::assertTrue($email->isEqualTo($contact->emailAddress()));
+        self::assertTrue($contact->status()->equals(SubscriptionStatus::unsubscribed()));
+    }
+
+    public function testMemberNotFoundDuringChangeStatus(): void
+    {
+        $email = EmailAddress::fromString(MockServer::EMAIL_NOT_SUBSCRIBED);
+        $this->expectException(MemberNotFound::class);
+        $this->client->changeSubscriptionStatus(
+            $email,
+            ListId::fromString(MockServer::VALID_LIST),
+            SubscriptionStatus::unsubscribed()
+        );
+    }
+
+    public function testThatUnsubscribeWillSendTheExpectedRequestPayload(): void
+    {
+        $email = EmailAddress::fromString(MockServer::EMAIL_IS_SUBSCRIBED);
+        $this->client->unsubscribe($email, ListId::fromString(MockServer::VALID_LIST));
+        $request = $this->httpClient()->lastRequest();
+        assert($request instanceof RequestInterface);
+        self::assertMessageBodyHasSubscriptionStatusOf(
+            $request,
+            SubscriptionStatus::unsubscribed()
+        );
+    }
+
+    public function testThatUnsubscribingANonExistentUserDoesNotCauseAnException(): void
+    {
+        $email = EmailAddress::fromString(MockServer::EMAIL_NOT_SUBSCRIBED);
+        $this->client->unsubscribe($email, ListId::fromString(MockServer::VALID_LIST));
+        $request = $this->httpClient()->lastRequest();
+        $response = $this->httpClient()->lastResponse();
+        assert($request instanceof RequestInterface);
+        self::assertMessageBodyHasSubscriptionStatusOf($request, SubscriptionStatus::unsubscribed());
+        assert($response instanceof ResponseInterface);
+        $body = Json::decodeToArray((string) $response->getBody());
+        self::assertIsArray($body['error']);
+        self::assertEquals(
+            'MEMBER_NOT_FOUND',
+            $body['error']['code']
+        );
+    }
+
+    private static function assertMessageBodyHasSubscriptionStatusOf(MessageInterface $message, SubscriptionStatus $status): void
+    {
+        $body = (string) $message->getBody();
+        $body = Json::decodeToArray($body);
+        self::assertArrayHasKey('status', $body, 'The message did not contain a status parameter');
+        self::assertEquals($status->getValue(), $body['status'], 'The status did not match');
     }
 }
