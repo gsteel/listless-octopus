@@ -1,0 +1,20 @@
+<?php
+
+declare(strict_types=1);
+
+namespace GSteel\Listless\Octopus\Exception;
+
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+
+final class InvalidRequestParameters extends ResponseError
+{
+    public static function new(RequestInterface $request, ResponseInterface $response): self
+    {
+        return self::withHttpExchange(
+            'The request contained invalid parameters in the request body or the URI',
+            $request,
+            $response
+        );
+    }
+}
