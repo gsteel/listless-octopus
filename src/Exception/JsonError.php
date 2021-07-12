@@ -17,7 +17,7 @@ final class JsonError extends RuntimeException implements Exception
     public static function onDecode(string $payload, JsonException $error): self
     {
         $instance = new self(
-            sprintf('JSON Decode Failure: %s (%s)', $error->getMessage(), $payload),
+            sprintf('JSON Decode Failure: %s', $error->getMessage()),
             (int) $error->getCode(),
             $error
         );
