@@ -12,6 +12,7 @@ use Throwable;
 
 use function json_encode;
 
+use const JSON_ERROR_DEPTH;
 use const JSON_THROW_ON_ERROR;
 use const STDOUT;
 
@@ -58,5 +59,16 @@ class JsonTest extends TestCase
     {
         $expect = ['foo' => 'bar'];
         self::assertEquals($expect, Json::decodeToArray('{"foo":"bar"}'));
+    }
+
+    public function testMaxDepthExceeded(): void
+    {
+        $inputArray = ['foo' => ['foo' => ['foo' => ['foo' => ['foo' => 'foo']]]]];
+        $json = json_encode($inputArray, JSON_THROW_ON_ERROR);
+
+        $this->expectException(JsonError::class);
+        $this->expectExceptionCode(JSON_ERROR_DEPTH);
+
+        Json::decodeToArray($json);
     }
 }

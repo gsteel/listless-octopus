@@ -23,7 +23,7 @@ final class Json
     public static function decodeToArray(string $json): array
     {
         try {
-            $decoded = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
+            $decoded = json_decode($json, true, 5, JSON_THROW_ON_ERROR);
             Assert::isArray($decoded);
 
             return $decoded;
