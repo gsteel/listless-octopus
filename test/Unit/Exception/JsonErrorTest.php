@@ -7,6 +7,7 @@ namespace GSteel\Listless\Octopus\Test\Unit\Exception;
 use GSteel\Listless\Octopus\Exception\BadMethodCall;
 use GSteel\Listless\Octopus\Exception\JsonError;
 use GSteel\Listless\Octopus\Util\Json;
+use JsonException;
 use PHPUnit\Framework\TestCase;
 
 class JsonErrorTest extends TestCase

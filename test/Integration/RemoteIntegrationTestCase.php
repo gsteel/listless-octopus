@@ -7,7 +7,6 @@ namespace GSteel\Listless\Octopus\Test\Integration;
 use Http\Client\Curl\Client;
 use Laminas\Diactoros\RequestFactory;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use React\ChildProcess\Process;
 
@@ -22,14 +21,16 @@ abstract class RemoteIntegrationTestCase extends TestCase
     private static $serverPort;
     /** @var Process */
     private static $serverProcess;
-    /** @var Client */
+    /** @var HttpClient */
     private static $httpClient;
     /** @var RequestFactory */
     private static $requestFactory;
 
     public static function setUpBeforeClass(): void
     {
-        self::$httpClient = new Client(null, null, [CURLOPT_CONNECTTIMEOUT_MS => 100]);
+        self::$httpClient = new HttpClient(
+            new Client(null, null, [CURLOPT_CONNECTTIMEOUT_MS => 100])
+        );
         self::$requestFactory = new RequestFactory();
         self::$serverPort = 8089;
         self::$serverProcess = new Process(
@@ -54,7 +55,7 @@ abstract class RemoteIntegrationTestCase extends TestCase
         return sprintf('http://127.0.0.1:%d', self::$serverPort);
     }
 
-    protected function httpClient(): ClientInterface
+    protected function httpClient(): HttpClient
     {
         return self::$httpClient;
     }

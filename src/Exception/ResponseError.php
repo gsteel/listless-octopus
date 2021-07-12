@@ -18,7 +18,7 @@ abstract class ResponseError extends RuntimeException implements Exception
     /** @var ResponseInterface|null */
     protected $response;
 
-    final public function __construct(string $message, int $code = 0, ?Throwable $previous = null) // phpcs:ignore
+    final public function __construct(string $message, int $code, ?Throwable $previous = null) // phpcs:ignore
     {
         parent::__construct($message, $code, $previous);
     }
@@ -26,12 +26,12 @@ abstract class ResponseError extends RuntimeException implements Exception
     /**
      * @return static
      */
-    final public static function withHttpExchange(
+    final protected static function withHttpExchange(
         string $message,
         RequestInterface $request,
         ResponseInterface $response
     ): self {
-        $error = new static($message);
+        $error = new static($message, $response->getStatusCode());
         $error->request = $request;
         $error->response = $response;
 

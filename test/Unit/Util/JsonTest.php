@@ -71,4 +71,12 @@ class JsonTest extends TestCase
 
         Json::decodeToArray($json);
     }
+
+    public function testMaxDepthNotExceeded(): void
+    {
+        $inputArray = ['foo' => ['foo' => ['foo' => ['foo']]]];
+        $json = json_encode($inputArray, JSON_THROW_ON_ERROR);
+
+        self::assertEquals($inputArray, Json::decodeToArray($json));
+    }
 }

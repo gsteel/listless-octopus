@@ -11,10 +11,10 @@ final class MemberAlreadySubscribed extends ResponseError
 {
     public static function new(RequestInterface $request, ResponseInterface $response): self
     {
-        $error = new self('The email address provided is already subscribed to the given list');
-        $error->request = $request;
-        $error->response = $response;
-
-        return $error;
+        return self::withHttpExchange(
+            'The email address provided is already subscribed to the given list',
+            $request,
+            $response
+        );
     }
 }

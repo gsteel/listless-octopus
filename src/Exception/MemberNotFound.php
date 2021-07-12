@@ -11,10 +11,10 @@ final class MemberNotFound extends ResponseError
 {
     public static function new(RequestInterface $request, ResponseInterface $response): self
     {
-        $error = new self('The email address provided is not a known member');
-        $error->request = $request;
-        $error->response = $response;
-
-        return $error;
+        return self::withHttpExchange(
+            'The email address provided is not a known member',
+            $request,
+            $response
+        );
     }
 }

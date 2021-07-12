@@ -6,15 +6,21 @@ namespace GSteel\Listless\Octopus\Test\Integration;
 
 use GSteel\Listless\Octopus\BaseClient;
 use GSteel\Listless\Octopus\Exception\InvalidApiKey;
+use GSteel\Listless\Octopus\Exception\MemberAlreadySubscribed;
+use GSteel\Listless\Octopus\Exception\MemberNotFound;
 use GSteel\Listless\Octopus\Exception\RequestFailure;
+use GSteel\Listless\Octopus\Util\Json;
 use GSteel\Listless\Value\EmailAddress;
 use GSteel\Listless\Value\ListId;
 use Laminas\Diactoros\StreamFactory;
 use Laminas\Diactoros\UriFactory;
 use Psr\Http\Client\ClientExceptionInterface;
+use Psr\Http\Message\RequestInterface;
 use Throwable;
 
+use function assert;
 use function get_class;
+use function parse_str;
 use function sprintf;
 
 class BaseClientTest extends RemoteIntegrationTestCase
@@ -43,12 +49,47 @@ class BaseClientTest extends RemoteIntegrationTestCase
         ));
     }
 
+    public function testThatFindingAContactIsExceptionalWhenTheyAreNotSubscribed(): void
+    {
+        $this->expectException(MemberNotFound::class);
+        $this->client->findListContactByEmailAddress(
+            EmailAddress::fromString(MockServer::EMAIL_NOT_SUBSCRIBED),
+            ListId::fromString(MockServer::VALID_LIST)
+        );
+    }
+
+    public function testThatGettingAContactWillAddTheApiKeyToTheRequestQuery(): void
+    {
+        $this->client->findListContactByEmailAddress(
+            EmailAddress::fromString(MockServer::EMAIL_IS_SUBSCRIBED),
+            ListId::fromString(MockServer::VALID_LIST)
+        );
+
+        $request = $this->httpClient()->lastRequest();
+        assert($request instanceof RequestInterface);
+
+        parse_str($request->getUri()->getQuery(), $query);
+        self::assertArrayHasKey('api_key', $query);
+        self::assertEquals(MockServer::VALID_API_KEY, $query['api_key']);
+    }
+
     public function testThatIsSubscribedWillReturnTrueWhenAUserIsSubscribed(): void
     {
         self::assertTrue($this->client->isSubscribed(
             EmailAddress::fromString(MockServer::EMAIL_IS_SUBSCRIBED),
             ListId::fromString(MockServer::VALID_LIST)
         ));
+    }
+
+    public function testThatFindingAContactIsPossibleWhenTheyAreSubscribed(): void
+    {
+        $email = EmailAddress::fromString(MockServer::EMAIL_IS_SUBSCRIBED);
+        $contact = $this->client->findListContactByEmailAddress(
+            $email,
+            ListId::fromString(MockServer::VALID_LIST)
+        );
+
+        self::assertTrue($contact->emailAddress()->isEqualTo($email));
     }
 
     public function testThatIsSubscribedWillReturnTrueWhenAUserIsPending(): void
@@ -59,12 +100,34 @@ class BaseClientTest extends RemoteIntegrationTestCase
         ));
     }
 
+    public function testThatAPendingSubscriberCanBeFound(): void
+    {
+        $email = EmailAddress::fromString(MockServer::EMAIL_IS_PENDING);
+        $contact = $this->client->findListContactByEmailAddress(
+            $email,
+            ListId::fromString(MockServer::VALID_LIST)
+        );
+
+        self::assertTrue($contact->emailAddress()->isEqualTo($email));
+    }
+
     public function testThatIsSubscribedWillReturnFalseWhenAUserIsMarkedAsUnsubscribed(): void
     {
         self::assertFalse($this->client->isSubscribed(
             EmailAddress::fromString(MockServer::EMAIL_IS_UNSUBSCRIBED),
             ListId::fromString(MockServer::VALID_LIST)
         ));
+    }
+
+    public function testThatAnUnsubscribedContactCanBeFound(): void
+    {
+        $email = EmailAddress::fromString(MockServer::EMAIL_IS_UNSUBSCRIBED);
+        $contact = $this->client->findListContactByEmailAddress(
+            $email,
+            ListId::fromString(MockServer::VALID_LIST)
+        );
+
+        self::assertTrue($contact->emailAddress()->isEqualTo($email));
     }
 
     public function testThatASuccessfulSubscriptionWillReturnAResultDeemedSuccessful(): void
@@ -77,6 +140,16 @@ class BaseClientTest extends RemoteIntegrationTestCase
         self::assertTrue($result->isSuccess());
     }
 
+    public function testThatANewContactCanBeAddedToAList(): void
+    {
+        $email = EmailAddress::fromString(MockServer::WILL_BE_SUCCESSFULLY_SUBSCRIBED);
+        $contact = $this->client->addContactToList(
+            $email,
+            ListId::fromString(MockServer::VALID_LIST)
+        );
+        self::assertTrue($contact->emailAddress()->isEqualTo($email));
+    }
+
     public function testThatADuplicateSubscriptionWillReturnAnUnsuccessfulResult(): void
     {
         $result = $this->client->subscribe(
@@ -85,6 +158,29 @@ class BaseClientTest extends RemoteIntegrationTestCase
         );
 
         self::assertFalse($result->isSuccess());
+    }
+
+    public function testThatAddingAnExistingContactToAListIsExceptional(): void
+    {
+        $this->expectException(MemberAlreadySubscribed::class);
+        $this->client->addContactToList(
+            EmailAddress::fromString(MockServer::IS_EXISTING_CONTACT),
+            ListId::fromString(MockServer::VALID_LIST)
+        );
+    }
+
+    public function testThatSubscriptionStatusWillNotBePresentInTheRequestBodyWhenNotProvided(): void
+    {
+        $this->client->addContactToList(
+            EmailAddress::fromString(MockServer::WILL_BE_SUCCESSFULLY_SUBSCRIBED),
+            ListId::fromString(MockServer::VALID_LIST)
+        );
+        $request = $this->httpClient()->lastRequest();
+        assert($request instanceof RequestInterface);
+        $body = (string) $request->getBody();
+        self::assertJson($body);
+        $payload = Json::decodeToArray($body);
+        self::assertArrayNotHasKey('status', $payload);
     }
 
     public function testThatPendingSubscriptionsAreDeemedSuccessful(): void

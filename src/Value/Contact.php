@@ -67,7 +67,6 @@ final class Contact
 
         Assert::string($data['id']);
         Assert::string($data['email_address']);
-        Assert::string($status);
         Assert::true(SubscriptionStatus::isValid($status));
         Assert::string($data['created_at']);
         Assert::isArray($data['fields']);
