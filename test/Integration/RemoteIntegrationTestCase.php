@@ -26,6 +26,12 @@ abstract class RemoteIntegrationTestCase extends TestCase
     /** @var RequestFactory */
     private static $requestFactory;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->httpClient()->clearState();
+    }
+
     public static function setUpBeforeClass(): void
     {
         self::$httpClient = new HttpClient(

@@ -30,6 +30,11 @@ final class HttpClient implements ClientInterface
         return $this->lastResponse;
     }
 
+    public function clearState(): void
+    {
+        $this->lastRequest = $this->lastResponse = null;
+    }
+
     public function lastRequest(): ?RequestInterface
     {
         return $this->lastRequest;
