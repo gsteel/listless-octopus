@@ -26,6 +26,12 @@
                 <referencedMethod name="PHPUnit\Framework\MockObject\Builder\InvocationMocker::with"/>
             </errorLevel>
         </InternalMethod>
+        <!-- Properties initialised in setUp always trigger this: -->
+        <MissingConstructor>
+            <errorLevel type="suppress">
+                <directory name="test"/>
+            </errorLevel>
+        </MissingConstructor>
     </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>

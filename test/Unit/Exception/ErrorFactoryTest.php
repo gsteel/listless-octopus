@@ -37,6 +37,7 @@ class ErrorFactoryTest extends TestCase
 
     private function responseWithBody(string $body): ResponseInterface
     {
+        /** @noinspection PhpUnhandledExceptionInspection */
         return $this->response
             ->withStatus(random_int(405, 599))
             ->withBody((new StreamFactory())->createStream($body));
@@ -106,7 +107,7 @@ class ErrorFactoryTest extends TestCase
 
     public function testThatA404HtmlResponseWillBeClassifiedAsANotFoundError(): void
     {
-        $response = new HtmlResponse('<html></html>', 404);
+        $response = new HtmlResponse('<html lang=""></html>', 404);
         $error = ErrorFactory::withHttpExchange($this->request, $response);
         self::assertInstanceOf(ApiResourceNotFound::class, $error);
     }
