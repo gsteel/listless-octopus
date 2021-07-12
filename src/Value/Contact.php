@@ -8,11 +8,7 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use GSteel\Listless\EmailAddress as EmailAddressContract;
 use GSteel\Listless\Octopus\Util\Assert;
-use GSteel\Listless\SubscriberInformation as SubscriberInformationContract;
 use GSteel\Listless\Value\EmailAddress;
-use GSteel\Listless\Value\SubscriberInformation;
-
-use function array_keys;
 
 final class Contact
 {
@@ -24,7 +20,7 @@ final class Contact
     private $status;
     /** @var DateTimeImmutable */
     private $createdAt;
-    /** @var SubscriberInformationContract */
+    /** @var ContactFields */
     private $data;
 
     private function __construct(
@@ -32,7 +28,7 @@ final class Contact
         EmailAddressContract $address,
         SubscriptionStatus $status,
         DateTimeImmutable $createdAt,
-        SubscriberInformationContract $data
+        ContactFields $data
     ) {
         $this->id = $id;
         $this->address = $address;
@@ -46,7 +42,6 @@ final class Contact
      *
      * @param array<array-key, mixed> $data
      *
-     * @psalm-suppress RedundantConditionGivenDocblockType
      * @psalm-suppress DocblockTypeContradiction
      */
     public static function fromArray(array $data): self
@@ -70,9 +65,8 @@ final class Contact
         Assert::true(SubscriptionStatus::isValid($status));
         Assert::string($data['created_at']);
         Assert::isArray($data['fields']);
-        Assert::allString(array_keys($data['fields']));
 
-        /** @psalm-var array<string, scalar|scalar[]> $fields */
+        /** @psalm-var array<string, string|int|null> $fields */
         $fields = $data['fields'];
 
         $createdAt = DateTimeImmutable::createFromFormat(DateTimeInterface::ATOM, $data['created_at']);
@@ -83,7 +77,7 @@ final class Contact
             EmailAddress::fromString($data['email_address']),
             new SubscriptionStatus($status),
             $createdAt,
-            SubscriberInformation::fromArray($fields)
+            ContactFields::fromArray($fields)
         );
     }
 
@@ -107,7 +101,7 @@ final class Contact
         return $this->id;
     }
 
-    public function fields(): SubscriberInformationContract
+    public function fields(): ContactFields
     {
         return $this->data;
     }

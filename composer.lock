@@ -78,12 +78,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/gsteel/listless.git",
-                "reference": "febfd25435127fead64662bcdeaaec147c0671f4"
+                "reference": "8adb9d247a56560ac8cb0acd6fd992d935587b42"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gsteel/listless/zipball/febfd25435127fead64662bcdeaaec147c0671f4",
-                "reference": "febfd25435127fead64662bcdeaaec147c0671f4",
+                "url": "https://api.github.com/repos/gsteel/listless/zipball/8adb9d247a56560ac8cb0acd6fd992d935587b42",
+                "reference": "8adb9d247a56560ac8cb0acd6fd992d935587b42",
                 "shasum": ""
             },
             "require": {
@@ -149,7 +149,7 @@
                 "source": "https://github.com/gsteel/listless/tree/main",
                 "issues": "https://github.com/gsteel/listless/issues"
             },
-            "time": "2021-07-12T08:58:30+00:00"
+            "time": "2021-07-12T14:32:55+00:00"
         },
         {
             "name": "myclabs/php-enum",
