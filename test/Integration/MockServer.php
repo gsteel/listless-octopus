@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace GSteel\Listless\Octopus\Test\Integration;
 
+use GSteel\Listless\Octopus\Util\Assert;
 use GSteel\Listless\Octopus\Util\Json;
+use GSteel\Listless\Octopus\Value\SubscriptionStatus;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use React\EventLoop\Loop;
@@ -239,6 +241,42 @@ final class MockServer
                 'type' => 'application/json',
                 'code' => 403,
                 'bodyMatcher' => null,
+            ],
+            'Unsubscribe User with PUT' => [
+                'uri' => sprintf(
+                    '/lists/%s/contacts/%s',
+                    self::VALID_LIST,
+                    md5(self::EMAIL_IS_SUBSCRIBED),
+                ),
+                'method' => 'PUT',
+                'body' => '{"id":"af8c2ddc-e26f-11eb-96e5-06b4694bee2a","email_address":"is-subscribed@example.com","fields":{"FirstName":null,"LastName":null},"status":"UNSUBSCRIBED","created_at":"2021-07-11T17:44:47+00:00"}',
+                'type' => 'application/json',
+                'code' => 200,
+                'bodyMatcher' => static function (string $body): bool {
+                    $payload = Json::decodeToArray($body);
+                    Assert::keyExists($payload, 'status');
+                    Assert::string($payload['status']);
+
+                    return $payload['status'] === SubscriptionStatus::unsubscribed()->getValue();
+                },
+            ],
+            'Unsubscribe User that does not exist' => [
+                'uri' => sprintf(
+                    '/lists/%s/contacts/%s',
+                    self::VALID_LIST,
+                    md5(self::EMAIL_NOT_SUBSCRIBED),
+                ),
+                'method' => 'PUT',
+                'body' => '{"error":{"code":"MEMBER_NOT_FOUND","message":"The contact could not be found."}}',
+                'type' => 'application/json',
+                'code' => 404,
+                'bodyMatcher' => static function (string $body): bool {
+                    $payload = Json::decodeToArray($body);
+                    Assert::keyExists($payload, 'status');
+                    Assert::string($payload['status']);
+
+                    return $payload['status'] === SubscriptionStatus::unsubscribed()->getValue();
+                },
             ],
         ];
     }
