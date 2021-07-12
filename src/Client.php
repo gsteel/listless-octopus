@@ -40,4 +40,15 @@ interface Client extends Subscribe, IsSubscribed, Unsubscribe
      * @throws MemberNotFound if the contact does not exist on the list.
      */
     public function findListContactByEmailAddress(EmailAddress $address, ListId $listId): Contact;
+
+    /**
+     * Change only the subscription status of an existing list member.
+     *
+     * @throws MemberNotFound if the contact does not exist on the list.
+     */
+    public function changeSubscriptionStatus(
+        EmailAddress $forAddress,
+        ListId $onList,
+        SubscriptionStatus $toStatus
+    ): Contact;
 }
