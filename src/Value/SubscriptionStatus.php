@@ -8,7 +8,7 @@ use MyCLabs\Enum\Enum;
 
 /**
  * @psalm-immutable
- * @psalm-template T of string
+ * @psalm-template T
  * @template-extends Enum<T>
  */
 final class SubscriptionStatus extends Enum

@@ -13,7 +13,6 @@ use GSteel\Listless\Value\EmailAddress;
 use GSteel\Listless\Value\SubscriberInformation;
 
 use function array_keys;
-use function assert;
 
 final class Contact
 {
@@ -48,6 +47,7 @@ final class Contact
      * @param array<array-key, mixed> $data
      *
      * @psalm-suppress RedundantConditionGivenDocblockType
+     * @psalm-suppress DocblockTypeContradiction
      */
     public static function fromArray(array $data): self
     {
@@ -62,9 +62,13 @@ final class Contact
             Assert::keyExists($data, $key);
         }
 
+        /** @psalm-var SubscriptionStatus<string> $status */
+        $status = $data['status'];
+
         Assert::string($data['id']);
         Assert::string($data['email_address']);
-        Assert::string($data['status']);
+        Assert::string($status);
+        Assert::true(SubscriptionStatus::isValid($status));
         Assert::string($data['created_at']);
         Assert::isArray($data['fields']);
         Assert::allString(array_keys($data['fields']));
@@ -73,12 +77,12 @@ final class Contact
         $fields = $data['fields'];
 
         $createdAt = DateTimeImmutable::createFromFormat(DateTimeInterface::ATOM, $data['created_at']);
-        assert($createdAt instanceof DateTimeImmutable);
+        Assert::isInstanceOf($createdAt, DateTimeImmutable::class);
 
         return new self(
             $data['id'],
             EmailAddress::fromString($data['email_address']),
-            new SubscriptionStatus($data['status']),
+            new SubscriptionStatus($status),
             $createdAt,
             SubscriberInformation::fromArray($fields)
         );
