@@ -34,17 +34,17 @@ class BaseClientTest extends TestCase
         );
     }
 
-    public function testThatMemberIdIsTheExpectedValue(): void
+    public function testThatEmailHashIsTheExpectedValue(): void
     {
         $expect = md5('me@example.com');
-        self::assertEquals($expect, $this->client->memberIdFromEmailAddress(EmailAddress::fromString('me@example.com')));
+        self::assertEquals($expect, $this->client->emailAddressHash(EmailAddress::fromString('me@example.com')));
     }
 
-    public function testThatTheMemberIdWillBeConsistentRegardlessOfEmailAddressCase(): void
+    public function testThatTheEmailHashWillBeConsistentRegardlessOfEmailAddressCase(): void
     {
         $email = new CaseSensitiveEmail('ME@EXAMPLE.COM');
         $expect = md5('me@example.com');
         self::assertNotEquals($expect, md5($email->toString()));
-        self::assertEquals($expect, $this->client->memberIdFromEmailAddress($email));
+        self::assertEquals($expect, $this->client->emailAddressHash($email));
     }
 }

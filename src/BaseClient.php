@@ -64,7 +64,7 @@ final class BaseClient implements Client, Subscribe
         $this->apiKey = $apiKey;
     }
 
-    public function memberIdFromEmailAddress(EmailAddress $address): string
+    public function emailAddressHash(EmailAddress $address): string
     {
         return md5(strtolower($address->toString()));
     }
@@ -138,7 +138,7 @@ final class BaseClient implements Client, Subscribe
         $response = $this->get(sprintf(
             '/lists/%s/contacts/%s',
             $listId->toString(),
-            $this->memberIdFromEmailAddress($address)
+            $this->emailAddressHash($address)
         ));
 
         return $this->contactFromResponse($response);
