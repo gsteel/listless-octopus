@@ -38,7 +38,7 @@ class ErrorFactoryTest extends TestCase
     private function responseWithBody(string $body): ResponseInterface
     {
         return $this->response
-            ->withStatus(random_int(400, 599))
+            ->withStatus(random_int(405, 599))
             ->withBody((new StreamFactory())->createStream($body));
     }
 
