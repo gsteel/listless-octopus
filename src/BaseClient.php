@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace GSteel\Listless\Octopus;
 
-use GSteel\Listless\Action\Subscribe;
 use GSteel\Listless\EmailAddress;
 use GSteel\Listless\ListId;
 use GSteel\Listless\Octopus\Exception\ErrorFactory;
@@ -34,7 +33,7 @@ use function rtrim;
 use function sprintf;
 use function strtolower;
 
-final class BaseClient implements Client, Subscribe
+final class BaseClient implements Client
 {
     protected const BASE_URI = 'https://emailoctopus.com/api/1.5';
 
@@ -69,11 +68,6 @@ final class BaseClient implements Client, Subscribe
         return md5(strtolower($address->toString()));
     }
 
-    /**
-     * @link https://emailoctopus.com/api-documentation/lists/create-contact
-     *
-     * @inheritDoc
-     */
     public function subscribe(
         EmailAddress $address,
         ListId $listId,
@@ -91,8 +85,11 @@ final class BaseClient implements Client, Subscribe
     }
 
     /**
-     * @throws MemberAlreadySubscribed if the email address is for someone already subscribed to the list.
+     * @link https://emailoctopus.com/api-documentation/lists/create-contact
+     *
      * @throws Exception if anything else goes wrong.
+     *
+     * @inheritDoc
      */
     public function addContactToList(
         EmailAddress $address,
@@ -130,8 +127,9 @@ final class BaseClient implements Client, Subscribe
     }
 
     /**
-     * @throws MemberNotFound if the contact does not exist on the list.
      * @throws Exception if anything else goes wrong.
+     *
+     * @inheritDoc
      */
     public function findListContactByEmailAddress(EmailAddress $address, ListId $listId): Contact
     {
@@ -190,6 +188,21 @@ final class BaseClient implements Client, Subscribe
     }
 
     /**
+     * @param array<array-key, mixed> $parameters
+     *
+     * @throws Exception
+     */
+    private function put(string $path, array $parameters): ResponseInterface
+    {
+        $uri = $this->appendPath($path);
+        $parameters['api_key'] = $this->apiKey;
+        $request = $this->requestFactory->createRequest('PUT', $uri)
+            ->withBody($this->streamFactory->createStream(Json::encodeArray($parameters)));
+
+        return $this->send($request);
+    }
+
+    /**
      * @throws Exception
      */
     private function send(RequestInterface $request): ResponseInterface
@@ -205,5 +218,28 @@ final class BaseClient implements Client, Subscribe
         }
 
         return $response;
+    }
+
+    public function unsubscribe(EmailAddress $address, ListId $fromList): void
+    {
+        try {
+            $this->changeSubscriptionStatus($address, $fromList, SubscriptionStatus::unsubscribed());
+        } catch (MemberNotFound $notFound) {
+            return;
+        }
+    }
+
+    public function changeSubscriptionStatus(
+        EmailAddress $forAddress,
+        ListId $onList,
+        SubscriptionStatus $toStatus
+    ): Contact {
+        $response = $this->put(sprintf(
+            '/lists/%s/contacts/%s',
+            $onList->toString(),
+            $this->emailAddressHash($forAddress)
+        ), ['status' => $toStatus->getValue()]);
+
+        return $this->contactFromResponse($response);
     }
 }
