@@ -20,6 +20,7 @@
         "gsteel/listless": "dev-main",
         "myclabs/php-enum": "^1.8",
         "php-http/discovery": "^1.11",
+        "psr/container": "^1 || ^2",
         "psr/http-client": "^1.0",
         "psr/http-client-implementation": "*",
         "psr/http-factory": "^1.0",
@@ -29,7 +30,7 @@
     "require-dev": {
         "doctrine/coding-standard": "^9.0",
         "ergebnis/composer-normalize": "^2.15",
-        "infection/infection": "^0.18.2",
+        "infection/infection": "^0",
         "laminas/laminas-diactoros": "^2.6",
         "php-http/curl-client": "^2.2",
         "phpunit/phpunit": "^9.5",
