@@ -37,3 +37,6 @@ jobs:
 
       - name: "Run mutation tests"
         run: "vendor/bin/infection --configuration=infection.json"
+
+      - name: "Show Infection Log"
+        run: "cat build/infection/infection.txt"
