@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace GSteel\Listless\Octopus\Test\Unit\Util;
 
+use GSteel\Listless\Octopus\Exception\AssertionFailed;
 use GSteel\Listless\Octopus\Exception\JsonError;
-use GSteel\Listless\Octopus\Exception\UnexpectedValue;
 use GSteel\Listless\Octopus\Util\Json;
 use PHPUnit\Framework\TestCase;
 use Throwable;
@@ -38,9 +38,9 @@ class JsonTest extends TestCase
         return [
             'Trailing Comma' => ['{"foo":"bar",}', JsonError::class],
             'Unquoted Word' => ['foo', JsonError::class],
-            'Quoted Word' => ['"foo"', UnexpectedValue::class],
-            'Boolean' => ['true', UnexpectedValue::class],
-            'Null' => ['null', UnexpectedValue::class],
+            'Quoted Word' => ['"foo"', AssertionFailed::class],
+            'Boolean' => ['true', AssertionFailed::class],
+            'Null' => ['null', AssertionFailed::class],
         ];
     }
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace GSteel\Listless\Octopus\Test\Unit\Value;
 
 use Generator;
-use GSteel\Listless\Octopus\Exception\UnexpectedValue;
+use GSteel\Listless\Octopus\Exception\AssertionFailed;
 use GSteel\Listless\Octopus\Value\Contact;
 use GSteel\Listless\Octopus\Value\SubscriptionStatus;
 use PHPUnit\Framework\TestCase;
@@ -55,7 +55,7 @@ class ContactTest extends TestCase
     {
         $payload = $this->validPayload();
         unset($payload[$key]);
-        $this->expectException(UnexpectedValue::class);
+        $this->expectException(AssertionFailed::class);
         Contact::fromArray($payload);
     }
 
@@ -89,7 +89,7 @@ class ContactTest extends TestCase
     {
         $payload = $this->validPayload();
         $payload[$key] = $value;
-        $this->expectException(UnexpectedValue::class);
+        $this->expectException(AssertionFailed::class);
         Contact::fromArray($payload);
     }
 }

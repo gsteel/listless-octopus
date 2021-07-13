@@ -78,16 +78,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/gsteel/listless.git",
-                "reference": "ca8717a973d7d92117254b431142257eb18a3066"
+                "reference": "a9c7d00a65dfefe77b8e3380d2c7a28d6be253fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gsteel/listless/zipball/ca8717a973d7d92117254b431142257eb18a3066",
-                "reference": "ca8717a973d7d92117254b431142257eb18a3066",
+                "url": "https://api.github.com/repos/gsteel/listless/zipball/a9c7d00a65dfefe77b8e3380d2c7a28d6be253fd",
+                "reference": "a9c7d00a65dfefe77b8e3380d2c7a28d6be253fd",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.3 || ~8.0",
+                "php": "^7.4 || ~8.0",
                 "symfony/polyfill-php80": "^1.23",
                 "webmozart/assert": "^1.10"
             },
@@ -149,7 +149,7 @@
                 "source": "https://github.com/gsteel/listless/tree/main",
                 "issues": "https://github.com/gsteel/listless/issues"
             },
-            "time": "2021-07-13T08:59:23+00:00"
+            "time": "2021-07-13T09:54:01+00:00"
         },
         {
             "name": "myclabs/php-enum",
@@ -4754,12 +4754,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "88c4d972f82b364386c98eebecf38512708a4de4"
+                "reference": "fc5e5d772af47d035df8178172391259b6e30566"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/88c4d972f82b364386c98eebecf38512708a4de4",
-                "reference": "88c4d972f82b364386c98eebecf38512708a4de4",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/fc5e5d772af47d035df8178172391259b6e30566",
+                "reference": "fc5e5d772af47d035df8178172391259b6e30566",
                 "shasum": ""
             },
             "conflict": {
@@ -4932,7 +4932,7 @@
                 "phpunit/phpunit": ">=4.8.19,<4.8.28|>=5.0.10,<5.6.3",
                 "phpwhois/phpwhois": "<=4.2.5",
                 "phpxmlrpc/extras": "<0.6.1",
-                "pimcore/pimcore": "<6.8.8",
+                "pimcore/pimcore": "<10.0.7",
                 "pocketmine/pocketmine-mp": "<3.15.4",
                 "pressbooks/pressbooks": "<5.18",
                 "prestashop/autoupgrade": ">=4,<4.10.1",
@@ -5123,7 +5123,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-07-12T17:14:45+00:00"
+            "time": "2021-07-13T18:03:10+00:00"
         },
         {
             "name": "sanmai/later",
@@ -6277,16 +6277,16 @@
         },
         {
             "name": "slevomat/coding-standard",
-            "version": "7.0.11",
+            "version": "7.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/slevomat/coding-standard.git",
-                "reference": "7151ac79031549850c110815c5fabeccff952592"
+                "reference": "5716052725863953ddc2f8a7e934c09cb64bdf73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/7151ac79031549850c110815c5fabeccff952592",
-                "reference": "7151ac79031549850c110815c5fabeccff952592",
+                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/5716052725863953ddc2f8a7e934c09cb64bdf73",
+                "reference": "5716052725863953ddc2f8a7e934c09cb64bdf73",
                 "shasum": ""
             },
             "require": {
@@ -6322,7 +6322,7 @@
             "description": "Slevomat Coding Standard for PHP_CodeSniffer complements Consistence Coding Standard by providing sniffs with additional checks.",
             "support": {
                 "issues": "https://github.com/slevomat/coding-standard/issues",
-                "source": "https://github.com/slevomat/coding-standard/tree/7.0.11"
+                "source": "https://github.com/slevomat/coding-standard/tree/7.0.12"
             },
             "funding": [
                 {
@@ -6334,7 +6334,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-07-12T17:14:11+00:00"
+            "time": "2021-07-13T17:47:03+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",

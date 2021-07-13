@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace GSteel\Listless\Octopus\Test\Integration\Container;
 
 use GSteel\Listless\Octopus\Container\ClientFactory;
-use GSteel\Listless\Octopus\Exception\UnexpectedValue;
+use GSteel\Listless\Octopus\Exception\AssertionFailed;
 use Http\Client\Curl\Client;
 use Laminas\Diactoros\RequestFactory;
 use Laminas\Diactoros\StreamFactory;
@@ -90,7 +90,7 @@ class ClientFactoryTest extends TestCase
                 ->method('get');
         }
 
-        $this->expectException(UnexpectedValue::class);
+        $this->expectException(AssertionFailed::class);
         $this->expectExceptionMessage($expectedErrorMessage);
         ($this->factory)($this->container);
     }

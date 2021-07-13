@@ -6,6 +6,6 @@ namespace GSteel\Listless\Octopus\Exception;
 
 use UnexpectedValueException;
 
-final class UnexpectedValue extends UnexpectedValueException implements Exception
+final class AssertionFailed extends UnexpectedValueException implements Exception
 {
 }

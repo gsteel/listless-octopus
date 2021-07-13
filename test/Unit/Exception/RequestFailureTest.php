@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace GSteel\Listless\Octopus\Test\Unit\Exception;
 
+use GSteel\Listless\Octopus\Exception\AssertionFailed;
 use GSteel\Listless\Octopus\Exception\RequestFailure;
-use GSteel\Listless\Octopus\Exception\UnexpectedValue;
 use Laminas\Diactoros\RequestFactory;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientExceptionInterface;
@@ -31,7 +31,7 @@ class RequestFailureTest extends TestCase
     public function testThatAccessingTheFailedRequestIsExceptionalWhenItDoesNotExist(): void
     {
         $error = new RequestFailure('Foo');
-        $this->expectException(UnexpectedValue::class);
+        $this->expectException(AssertionFailed::class);
         $error->failedRequest();
     }
 }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace GSteel\Listless\Octopus\Test\Unit\Exception;
 
+use GSteel\Listless\Octopus\Exception\AssertionFailed;
 use GSteel\Listless\Octopus\Exception\ResponseError;
-use GSteel\Listless\Octopus\Exception\UnexpectedValue;
 use Laminas\Diactoros\RequestFactory;
 use Laminas\Diactoros\ResponseFactory;
 use PHPUnit\Framework\TestCase;
@@ -35,13 +35,13 @@ class ResponseErrorTest extends TestCase
 
     public function testAnExceptionIsThrownAccessingTheFailedRequestWhenItDoesNotExist(): void
     {
-        $this->expectException(UnexpectedValue::class);
+        $this->expectException(AssertionFailed::class);
         $this->error->request();
     }
 
     public function testAnExceptionIsThrownAccessingTheFailedResponseWhenItDoesNotExist(): void
     {
-        $this->expectException(UnexpectedValue::class);
+        $this->expectException(AssertionFailed::class);
         $this->error->response();
     }
 
