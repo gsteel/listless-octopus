@@ -13,6 +13,7 @@ use GSteel\Listless\Octopus\Util\Json;
 use GSteel\Listless\Octopus\Value\SubscriptionStatus;
 use GSteel\Listless\Value\EmailAddress;
 use GSteel\Listless\Value\ListId;
+use GSteel\Listless\Value\SubscriptionResult;
 use Laminas\Diactoros\StreamFactory;
 use Laminas\Diactoros\UriFactory;
 use Psr\Http\Client\ClientExceptionInterface;
@@ -23,13 +24,13 @@ use Throwable;
 
 use function assert;
 use function get_class;
+use function md5;
 use function parse_str;
 use function sprintf;
 
 class BaseClientTest extends RemoteIntegrationTestCase
 {
-    /** @var BaseClient */
-    private $client;
+    private BaseClient $client;
 
     protected function setUp(): void
     {
@@ -59,6 +60,27 @@ class BaseClientTest extends RemoteIntegrationTestCase
             EmailAddress::fromString(MockServer::EMAIL_NOT_SUBSCRIBED),
             ListId::fromString(MockServer::VALID_LIST)
         );
+    }
+
+    public function testThatGettingAContactWillSendTheRequestToTheExpectedUri(): void
+    {
+        $this->client->findListContactByEmailAddress(
+            EmailAddress::fromString(MockServer::EMAIL_IS_SUBSCRIBED),
+            ListId::fromString(MockServer::VALID_LIST)
+        );
+
+        $request = $this->httpClient()->lastRequest();
+        assert($request instanceof RequestInterface);
+
+        $expect = sprintf(
+            '%s/lists/%s/contacts/%s?api_key=%s',
+            self::apiServerUri(),
+            MockServer::VALID_LIST,
+            md5(MockServer::EMAIL_IS_SUBSCRIBED),
+            MockServer::VALID_API_KEY
+        );
+
+        self::assertEquals($expect, (string) $request->getUri());
     }
 
     public function testThatGettingAContactWillAddTheApiKeyToTheRequestQuery(): void
@@ -141,6 +163,16 @@ class BaseClientTest extends RemoteIntegrationTestCase
         );
 
         self::assertTrue($result->isSuccess());
+    }
+
+    public function testThatASuccessfulSubscriptionWillReturnAResultRepresentingActualSubscription(): void
+    {
+        $result = $this->client->subscribe(
+            EmailAddress::fromString(MockServer::WILL_BE_SUCCESSFULLY_SUBSCRIBED),
+            ListId::fromString(MockServer::VALID_LIST)
+        );
+
+        self::assertTrue($result->equals(SubscriptionResult::subscribed()));
     }
 
     public function testThatANewContactCanBeAddedToAList(): void

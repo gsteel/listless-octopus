@@ -20,8 +20,7 @@ use Psr\Http\Message\UriFactoryInterface;
 
 class ClientFactoryTest extends TestCase
 {
-    /** @var ClientFactory */
-    private $factory;
+    private ClientFactory $factory;
     /** @var MockObject&ContainerInterface */
     private $container;
 

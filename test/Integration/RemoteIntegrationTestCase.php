@@ -17,14 +17,11 @@ use const CURLOPT_CONNECTTIMEOUT_MS;
 
 abstract class RemoteIntegrationTestCase extends TestCase
 {
-    /** @var int */
-    private static $serverPort;
-    /** @var Process */
-    private static $serverProcess;
-    /** @var HttpClient */
-    private static $httpClient;
-    /** @var RequestFactory */
-    private static $requestFactory;
+    private static int $serverPort;
+    private static Process $serverProcess;
+    private static HttpClient $httpClient;
+    private static RequestFactory $requestFactory;
+    protected static string $basePath = '/some/path';
 
     protected function setUp(): void
     {
@@ -40,7 +37,7 @@ abstract class RemoteIntegrationTestCase extends TestCase
         self::$requestFactory = new RequestFactory();
         self::$serverPort = 8089;
         self::$serverProcess = new Process(
-            sprintf('exec php %s/run-server.php %d', __DIR__, self::$serverPort),
+            sprintf('exec php %s/run-server.php %d %s', __DIR__, self::$serverPort, self::$basePath),
             __DIR__
         );
         self::$serverProcess->start();
@@ -58,7 +55,7 @@ abstract class RemoteIntegrationTestCase extends TestCase
 
     protected static function apiServerUri(): string
     {
-        return sprintf('http://127.0.0.1:%d', self::$serverPort);
+        return sprintf('http://127.0.0.1:%d/some/path', self::$serverPort);
     }
 
     protected function httpClient(): HttpClient

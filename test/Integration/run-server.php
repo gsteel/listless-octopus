@@ -10,5 +10,7 @@ require __DIR__ . '/../../vendor/autoload.php';
 $port = $argv[1] ?? 8085;
 Assert::numeric($port);
 
-$server = new MockServer((int) $port);
+$basePath = $argv[2] ?? '/some/path';
+
+$server = new MockServer((int) $port, $basePath);
 $server->start();

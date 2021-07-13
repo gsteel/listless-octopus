@@ -17,8 +17,7 @@ use function call_user_func;
 
 class ResponseErrorTest extends TestCase
 {
-    /** @var ResponseError */
-    private $error;
+    private ResponseError $error;
 
     protected function setUp(): void
     {

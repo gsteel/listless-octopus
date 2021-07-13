@@ -14,8 +14,7 @@ use function strtolower;
  */
 final class CaseSensitiveEmail implements EmailAddress
 {
-    /** @var string */
-    private $email;
+    private string $email;
 
     public function __construct(string $email)
     {

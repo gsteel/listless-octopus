@@ -15,7 +15,7 @@
         "symfony/polyfill-php73": "*"
     },
     "require": {
-        "php": "^7.3 || ~8.0",
+        "php": "^7.4 || ~8.0",
         "ext-json": "*",
         "gsteel/listless": "dev-main",
         "myclabs/php-enum": "^1.8",

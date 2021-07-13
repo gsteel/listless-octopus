@@ -23,10 +23,8 @@ use function random_int;
 
 class ErrorFactoryTest extends TestCase
 {
-    /** @var RequestInterface */
-    private $request;
-    /** @var ResponseInterface */
-    private $response;
+    private RequestInterface $request;
+    private ResponseInterface $response;
 
     protected function setUp(): void
     {

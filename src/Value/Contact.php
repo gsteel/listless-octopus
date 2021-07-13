@@ -12,16 +12,11 @@ use GSteel\Listless\Value\EmailAddress;
 
 final class Contact
 {
-    /** @var string */
-    private $id;
-    /** @var EmailAddressContract */
-    private $address;
-    /** @var SubscriptionStatus */
-    private $status;
-    /** @var DateTimeImmutable */
-    private $createdAt;
-    /** @var ContactFields */
-    private $data;
+    private string $id;
+    private EmailAddressContract $address;
+    private SubscriptionStatus $status;
+    private DateTimeImmutable $createdAt;
+    private ContactFields $data;
 
     private function __construct(
         string $id,

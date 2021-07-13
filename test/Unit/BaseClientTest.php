@@ -6,10 +6,10 @@ namespace GSteel\Listless\Octopus\Test\Unit;
 
 use GSteel\Listless\Octopus\BaseClient;
 use GSteel\Listless\Octopus\Test\Unit\Stub\CaseSensitiveEmail;
+use GSteel\Listless\Octopus\Test\Unit\Stub\UriFactory;
 use GSteel\Listless\Value\EmailAddress;
 use Laminas\Diactoros\RequestFactory;
 use Laminas\Diactoros\StreamFactory;
-use Laminas\Diactoros\UriFactory;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientInterface;
 
@@ -17,8 +17,7 @@ use function md5;
 
 class BaseClientTest extends TestCase
 {
-    /** @var BaseClient */
-    private $client;
+    private BaseClient $client;
 
     protected function setUp(): void
     {
@@ -46,5 +45,20 @@ class BaseClientTest extends TestCase
         $expect = md5('me@example.com');
         self::assertNotEquals($expect, md5($email->toString()));
         self::assertEquals($expect, $this->client->emailAddressHash($email));
+    }
+
+    public function testThatTheBaseUriWillBeTrimmedDuringConstructionSoThatAppendingPathsWorks(): void
+    {
+        $factory = new UriFactory();
+        new BaseClient(
+            'AnyKey',
+            $this->createMock(ClientInterface::class),
+            new RequestFactory(),
+            $factory,
+            new StreamFactory(),
+            'http://0.0.0.0/some/path//'
+        );
+
+        self::assertEquals('http://0.0.0.0/some/path', (string) $factory->lastUri());
     }
 }

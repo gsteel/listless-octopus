@@ -37,16 +37,11 @@ final class BaseClient implements Client
 {
     protected const BASE_URI = 'https://emailoctopus.com/api/1.5';
 
-    /** @var UriInterface */
-    private $baseUri;
-    /** @var HttpClient */
-    private $httpClient;
-    /** @var RequestFactoryInterface */
-    private $requestFactory;
-    /** @var string */
-    private $apiKey;
-    /** @var StreamFactoryInterface */
-    private $streamFactory;
+    private UriInterface $baseUri;
+    private HttpClient $httpClient;
+    private RequestFactoryInterface $requestFactory;
+    private string $apiKey;
+    private StreamFactoryInterface $streamFactory;
 
     public function __construct(
         string $apiKey,
@@ -220,6 +215,9 @@ final class BaseClient implements Client
         return $response;
     }
 
+    /**
+     * @throws Exception
+     */
     public function unsubscribe(EmailAddress $address, ListId $fromList): void
     {
         try {
@@ -229,6 +227,9 @@ final class BaseClient implements Client
         }
     }
 
+    /**
+     * @throws Exception
+     */
     public function changeSubscriptionStatus(
         EmailAddress $forAddress,
         ListId $onList,

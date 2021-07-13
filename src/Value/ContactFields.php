@@ -23,7 +23,7 @@ class ContactFields implements SubscriberInformation
     public const FIELD_NAME_LAST_NAME = 'LastName';
 
     /** @var array<string, int|string|null> */
-    private $data;
+    private array $data;
 
     /** @param array<string, int|string|null> $data */
     final protected function __construct(array $data)
