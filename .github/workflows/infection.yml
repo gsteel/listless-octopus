@@ -40,4 +40,4 @@ jobs:
 
       - name: "Show Infection Log"
         if: always()
-        run: "cat build/infection/infection.txt"
+        run: "cat build/infection/infection-log.txt"
