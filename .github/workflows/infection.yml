@@ -39,4 +39,5 @@ jobs:
         run: "vendor/bin/infection --configuration=infection.json"
 
       - name: "Show Infection Log"
+        if: always()
         run: "cat build/infection/infection.txt"
