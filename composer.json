@@ -11,9 +11,6 @@
             "email": "george@net-glue.co.uk"
         }
     ],
-    "provide": {
-        "symfony/polyfill-php73": "*"
-    },
     "require": {
         "php": "^7.4 || ~8.0",
         "ext-json": "*",
@@ -27,7 +24,11 @@
         "psr/http-message": "^1.0",
         "webmozart/assert": "^1.10"
     },
+    "provide": {
+        "symfony/polyfill-php73": "*"
+    },
     "require-dev": {
+        "ext-curl": "*",
         "doctrine/coding-standard": "^9.0",
         "ergebnis/composer-normalize": "^2.15",
         "infection/infection": "^0",
@@ -38,8 +39,7 @@
         "react/child-process": "^0.6.3",
         "react/http": "^1.4",
         "roave/security-advisories": "dev-latest",
-        "vimeo/psalm": "^4.8",
-        "ext-curl": "*"
+        "vimeo/psalm": "^4.8"
     },
     "config": {
         "sort-packages": true
@@ -61,23 +61,24 @@
             "GSteel\\Listless\\Octopus\\Test\\Integration\\": "test/Integration"
         }
     },
-    "scripts": {
-        "check": [
-            "phpcs",
-            "psalm",
-            "phpunit",
-            "infection"
-        ],
-        "clean": [
-            "composer normalize",
-            "psalm --generate-baseline",
-            "phpcbf"
-        ]
-    },
     "repositories": [
         {
             "type": "vcs",
             "url": "https://github.com/gsteel/listless"
         }
-    ]
+    ],
+    "scripts": {
+        "check": [
+            "phpcs",
+            "psalm",
+            "phpunit --coverage-xml=build/coverage/coverage-xml --log-junit=build/coverage/junit.xml",
+            "infection --skip-initial-tests --coverage=build/coverage"
+        ],
+        "clean": [
+            "composer normalize",
+            "psalm --clear-cache",
+            "psalm --update-baseline",
+            "phpcbf"
+        ]
+    }
 }
