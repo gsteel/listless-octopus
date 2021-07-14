@@ -11,7 +11,7 @@ use GSteel\Listless\MailingList as MailingListInterface;
 use GSteel\Listless\Octopus\Exception\AssertionFailed;
 use GSteel\Listless\Octopus\Exception\InvalidArgument;
 use GSteel\Listless\Octopus\Util\Assert;
-use GSteel\Listless\Value\ListId as ID;
+use GSteel\Listless\Octopus\Value\ListId as ID;
 
 use function array_map;
 
