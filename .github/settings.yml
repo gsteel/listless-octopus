@@ -38,7 +38,7 @@ repository:
   archived: false
   default_branch: "main"
   delete_branch_on_merge: true
-  description: "An Email Octopus Mailing List API Client built to work with the listless contract"
+  description: "An Email Octopus Mailing List API Client built to work with the listless contracts"
   enable_automated_security_fixes: true
   enable_vulnerability_alerts: true
   has_downloads: true
@@ -48,4 +48,4 @@ repository:
   has_wiki: false
   name: "listless-octopus"
   private: false
-  topics: "email, mailing-list, email-octopus"
+  topics: "email, mailing-list, email-octopus, php, psr-18, psr-17"
