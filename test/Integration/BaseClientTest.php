@@ -375,4 +375,26 @@ class BaseClientTest extends RemoteIntegrationTestCase
         $this->expectExceptionMessage($expectedExceptionMessage);
         $this->client->createMailingList($listName);
     }
+
+    public function testThatDeletingAListUsesTheCorrectListId(): void
+    {
+        $this->client->deleteMailingList(ListId::fromString(MockServer::VALID_LIST));
+        $request = $this->httpClient()->lastRequest();
+        assert($request instanceof RequestInterface);
+        self::assertStringContainsString(MockServer::VALID_LIST, $request->getUri()->getPath());
+        self::assertEquals('DELETE', $request->getMethod());
+    }
+
+    public function testThatDeletingAContactUsesTheCorrectListIdAndEmailAddress(): void
+    {
+        $this->client->deleteListContact(
+            EmailAddress::fromString(MockServer::EMAIL_IS_SUBSCRIBED),
+            ListId::fromString(MockServer::VALID_LIST)
+        );
+        $request = $this->httpClient()->lastRequest();
+        assert($request instanceof RequestInterface);
+        self::assertStringContainsString(MockServer::VALID_LIST, $request->getUri()->getPath());
+        self::assertStringContainsString(md5(MockServer::EMAIL_IS_SUBSCRIBED), $request->getUri()->getPath());
+        self::assertEquals('DELETE', $request->getMethod());
+    }
 }

@@ -9,9 +9,13 @@ use GSteel\Listless\Action\Subscribe;
 use GSteel\Listless\Action\Unsubscribe;
 use GSteel\Listless\EmailAddress;
 use GSteel\Listless\ListId;
+use GSteel\Listless\Octopus\Exception\Exception;
+use GSteel\Listless\Octopus\Exception\MailingListNotFound;
 use GSteel\Listless\Octopus\Exception\MemberAlreadySubscribed;
 use GSteel\Listless\Octopus\Exception\MemberNotFound;
 use GSteel\Listless\Octopus\Value\Contact;
+use GSteel\Listless\Octopus\Value\ListId as ID;
+use GSteel\Listless\Octopus\Value\MailingList;
 use GSteel\Listless\Octopus\Value\SubscriptionStatus;
 use GSteel\Listless\SubscriberInformation;
 
@@ -51,4 +55,33 @@ interface Client extends Subscribe, IsSubscribed, Unsubscribe
         ListId $onList,
         SubscriptionStatus $toStatus
     ): Contact;
+
+    /**
+     * Find a mailing list by its unique identifier or throw an exception.
+     *
+     * @throws Exception if anything doesn't work.
+     * @throws MailingListNotFound if the list does not exist.
+     */
+    public function findMailingListById(ListId $id): MailingList;
+
+    /**
+     * Create a brand spanking new mailing list
+     *
+     * @throws Exception
+     */
+    public function createMailingList(string $name): ID;
+
+    /**
+     * Delete a mailing list
+     *
+     * @throws Exception if the operation fails.
+     */
+    public function deleteMailingList(ListId $listId): void;
+
+    /**
+     * Delete a list contact
+     *
+     * @throws Exception if the operation fails.
+     */
+    public function deleteListContact(EmailAddress $address, ListId $fromList): void;
 }

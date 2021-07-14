@@ -350,6 +350,22 @@ final class MockServer
                     return $payload['name'] === self::LIST_NAME_TO_TRIGGER_INVALID_ID;
                 },
             ],
+            'Delete a mailing list' => [
+                'uri' => sprintf('/lists/%s', self::VALID_LIST),
+                'method' => 'DELETE',
+                'body' => '{}',
+                'type' => 'application/json',
+                'code' => 200,
+                'bodyMatcher' => null,
+            ],
+            'Delete a list contact' => [
+                'uri' => sprintf('/lists/%s/contacts/%s', self::VALID_LIST, md5(self::EMAIL_IS_SUBSCRIBED)),
+                'method' => 'DELETE',
+                'body' => '{}',
+                'type' => 'application/json',
+                'code' => 200,
+                'bodyMatcher' => null,
+            ],
         ];
     }
 }

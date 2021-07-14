@@ -181,6 +181,7 @@ final class BaseClient implements Client
         $uri = $this->appendPath($path);
         $parameters['api_key'] = $this->apiKey;
         $request = $this->requestFactory->createRequest('POST', $uri)
+            ->withHeader('Content-Type', 'application/json; charset=utf-8')
             ->withBody($this->streamFactory->createStream(Json::encodeArray($parameters)));
 
         return $this->send($request);
@@ -196,6 +197,23 @@ final class BaseClient implements Client
         $uri = $this->appendPath($path);
         $parameters['api_key'] = $this->apiKey;
         $request = $this->requestFactory->createRequest('PUT', $uri)
+            ->withHeader('Content-Type', 'application/json; charset=utf-8')
+            ->withBody($this->streamFactory->createStream(Json::encodeArray($parameters)));
+
+        return $this->send($request);
+    }
+
+    /**
+     * @param array<array-key, mixed> $parameters
+     *
+     * @throws Exception
+     */
+    private function delete(string $path, array $parameters): ResponseInterface
+    {
+        $uri = $this->appendPath($path);
+        $parameters['api_key'] = $this->apiKey;
+        $request = $this->requestFactory->createRequest('DELETE', $uri)
+            ->withHeader('Content-Type', 'application/json; charset=utf-8')
             ->withBody($this->streamFactory->createStream(Json::encodeArray($parameters)));
 
         return $this->send($request);
@@ -206,6 +224,7 @@ final class BaseClient implements Client
      */
     private function send(RequestInterface $request): ResponseInterface
     {
+        $request = $request->withHeader('Accept', 'application/json');
         try {
             $response = $this->httpClient->sendRequest($request);
         } catch (PsrHttpError $error) {
@@ -282,5 +301,19 @@ final class BaseClient implements Client
         Assert::string($payload['id'], 'Expected a string list identifier. Received %s');
 
         return ID::fromString($payload['id']);
+    }
+
+    public function deleteMailingList(ListId $listId): void
+    {
+        $this->delete(sprintf('/lists/%s', $listId->toString()), []);
+    }
+
+    public function deleteListContact(EmailAddress $address, ListId $fromList): void
+    {
+        $this->delete(sprintf(
+            '/lists/%s/contacts/%s',
+            $fromList->toString(),
+            $this->emailAddressHash($address)
+        ), []);
     }
 }
