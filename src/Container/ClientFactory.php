@@ -15,6 +15,9 @@ use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
 
+use function assert;
+use function is_a;
+
 /**
  * PSR-11 Container Factory
  *
@@ -39,21 +42,35 @@ final class ClientFactory
         $apiKey = $config['api-key'] ?? null;
         Assert::string($apiKey, 'No API key has been configured');
 
-        /** @psalm-suppress MixedArgument */
         return new BaseClient(
             $apiKey,
-            $container->has(ClientInterface::class)
-                ? $container->get(ClientInterface::class)
-                : Psr18ClientDiscovery::find(),
-            $container->has(RequestFactoryInterface::class)
-                ? $container->get(RequestFactoryInterface::class)
-                : Psr17FactoryDiscovery::findRequestFactory(),
-            $container->has(UriFactoryInterface::class)
-                ? $container->get(UriFactoryInterface::class)
-                : Psr17FactoryDiscovery::findUriFactory(),
-            $container->has(StreamFactoryInterface::class)
-                ? $container->get(StreamFactoryInterface::class)
-                : Psr17FactoryDiscovery::findStreamFactory()
+            $this->serviceOrNull($container, ClientInterface::class)
+                ?: Psr18ClientDiscovery::find(),
+            $this->serviceOrNull($container, RequestFactoryInterface::class)
+                ?: Psr17FactoryDiscovery::findRequestFactory(),
+            $this->serviceOrNull($container, UriFactoryInterface::class)
+                ?: Psr17FactoryDiscovery::findUriFactory(),
+            $this->serviceOrNull($container, StreamFactoryInterface::class)
+                ?: Psr17FactoryDiscovery::findStreamFactory()
         );
+    }
+
+    /**
+     * @psalm-param class-string<T> $serviceName
+     *
+     * @psalm-return T|null
+     *
+     * @psalm-template T
+     */
+    private function serviceOrNull(ContainerInterface $container, string $serviceName): ?object
+    {
+        /** @psalm-var T|null $service */
+        $service = $container->has($serviceName)
+            ? $container->get($serviceName)
+            : null;
+
+        assert(is_a($service, $serviceName) || $service === null);
+
+        return $service;
     }
 }
