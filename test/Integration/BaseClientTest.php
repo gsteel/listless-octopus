@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace GSteel\Listless\Octopus\Test\Integration;
 
 use GSteel\Listless\Octopus\BaseClient;
+use GSteel\Listless\Octopus\Exception\AssertionFailed;
 use GSteel\Listless\Octopus\Exception\InvalidApiKey;
 use GSteel\Listless\Octopus\Exception\MailingListNotFound;
 use GSteel\Listless\Octopus\Exception\MemberAlreadySubscribed;
@@ -340,5 +341,38 @@ class BaseClientTest extends RemoteIntegrationTestCase
     {
         $list = $this->client->findMailingListById(ListId::fromString(MockServer::VALID_LIST));
         self::assertEquals($list->listId()->toString(), MockServer::VALID_LIST);
+    }
+
+    public function testThatAListCanBeCreated(): void
+    {
+        $id = $this->client->createMailingList(MockServer::LIST_NAME_FOR_SUCCESSFUL_CREATION);
+        self::assertEquals('new-list-id', $id->toString());
+    }
+
+    /** @return array<string, string[]> */
+    public function listCreateResponsesThatCauseAssertionErrors(): array
+    {
+        return [
+            MockServer::LIST_NAME_TO_TRIGGER_INVALID_ID => [
+                MockServer::LIST_NAME_TO_TRIGGER_INVALID_ID,
+                'Expected a string list identifier. Received integer',
+            ],
+            MockServer::LIST_NAME_TO_TRIGGER_MISSING_ID => [
+                MockServer::LIST_NAME_TO_TRIGGER_MISSING_ID,
+                'The response did not have a list id present',
+            ],
+            'Empty List Name' => [
+                '',
+                'List name cannot be empty',
+            ],
+        ];
+    }
+
+    /** @dataProvider listCreateResponsesThatCauseAssertionErrors */
+    public function testWeirdPayloadsDuringListCreation(string $listName, string $expectedExceptionMessage): void
+    {
+        $this->expectException(AssertionFailed::class);
+        $this->expectExceptionMessage($expectedExceptionMessage);
+        $this->client->createMailingList($listName);
     }
 }

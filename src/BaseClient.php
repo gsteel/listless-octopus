@@ -12,8 +12,10 @@ use GSteel\Listless\Octopus\Exception\MailingListNotFound;
 use GSteel\Listless\Octopus\Exception\MemberAlreadySubscribed;
 use GSteel\Listless\Octopus\Exception\MemberNotFound;
 use GSteel\Listless\Octopus\Exception\RequestFailure;
+use GSteel\Listless\Octopus\Util\Assert;
 use GSteel\Listless\Octopus\Util\Json;
 use GSteel\Listless\Octopus\Value\Contact;
+use GSteel\Listless\Octopus\Value\ListId as ID;
 use GSteel\Listless\Octopus\Value\MailingList;
 use GSteel\Listless\Octopus\Value\SubscriptionStatus;
 use GSteel\Listless\SubscriberInformation;
@@ -265,5 +267,20 @@ final class BaseClient implements Client
         $payload = Json::decodeToArray((string) $response->getBody());
 
         return MailingList::fromArray($payload);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function createMailingList(string $name): ID
+    {
+        Assert::notEmpty($name, 'List name cannot be empty');
+        $response = $this->post('/lists', ['name' => $name]);
+
+        $payload = Json::decodeToArray((string) $response->getBody());
+        Assert::keyExists($payload, 'id', 'The response did not have a list id present');
+        Assert::string($payload['id'], 'Expected a string list identifier. Received %s');
+
+        return ID::fromString($payload['id']);
     }
 }

@@ -34,6 +34,9 @@ final class MockServer
     public const IS_SUBSCRIBED_WILL_CAUSE_INVALID_API_KEY = 'invalid-api-key@example.com';
     public const UNAUTHORISED_LIST_ID = 'list-id-unauthorised';
     public const LIST_ID_NOT_FOUND = 'list-not-found';
+    public const LIST_NAME_TO_TRIGGER_MISSING_ID = 'Gimme a payload with a missing list id';
+    public const LIST_NAME_TO_TRIGGER_INVALID_ID = 'Gimme a payload with an integer list id';
+    public const LIST_NAME_FOR_SUCCESSFUL_CREATION = 'New List Name';
 
     private LoopInterface $loop;
     private HttpServer $server;
@@ -287,6 +290,7 @@ final class MockServer
                 'body' => '{"id":"' . self::VALID_LIST . '","name":"Example List","double_opt_in":false,"fields":[{"tag":"EmailAddress","type":"TEXT","label":"Email address","fallback":null},{"tag":"FirstName","type":"TEXT","label":"First name","fallback":null},{"tag":"LastName","type":"TEXT","label":"Last name","fallback":null},{"tag":"ArbitraryText","type":"TEXT","label":"Arbitrary Text","fallback":"Foo"},{"tag":"NumericValue","type":"NUMBER","label":"Numeric Value","fallback":"42"}],"counts":{"pending":0,"subscribed":1,"unsubscribed":1},"created_at":"2021-01-01T01:00:00+00:00"}',
                 'type' => 'application/json',
                 'code' => 200,
+                'bodyMatcher' => null,
             ],
             'Retrieve a list and get unauthorised response' => [
                 'uri' => sprintf('/lists/%s', self::UNAUTHORISED_LIST_ID),
@@ -294,6 +298,7 @@ final class MockServer
                 'body' => '{"error":{"code":"UNAUTHORISED","message":"You\u0027re not authorised to perform that action."}}',
                 'type' => 'application/json',
                 'code' => 403,
+                'bodyMatcher' => null,
             ],
             'Retrieve a non-existent list and get the documented error' => [
                 'uri' => sprintf('/lists/%s', self::LIST_ID_NOT_FOUND),
@@ -301,6 +306,49 @@ final class MockServer
                 'body' => '{"error":{"code":"LIST_NOT_FOUND","message":"This is a fabricated response. The API does not return a 404"}}',
                 'type' => 'application/json',
                 'code' => 404,
+                'bodyMatcher' => null,
+            ],
+            'Post a new list' => [
+                'uri' => '/lists',
+                'method' => 'POST',
+                'body' => '{"id":"new-list-id","name":"New List Name","created_at":"2021-07-14T19:19:07+00:00"}',
+                'type' => 'application/json',
+                'code' => 200,
+                'bodyMatcher' => static function (string $body): bool {
+                    $payload = Json::decodeToArray($body);
+                    Assert::keyExists($payload, 'name');
+                    Assert::string($payload['name']);
+
+                    return $payload['name'] === self::LIST_NAME_FOR_SUCCESSFUL_CREATION;
+                },
+            ],
+            'Post a new list and get a missing id' => [
+                'uri' => '/lists',
+                'method' => 'POST',
+                'body' => '{"name":"New List Name","created_at":"2021-07-14T19:19:07+00:00"}',
+                'type' => 'application/json',
+                'code' => 200,
+                'bodyMatcher' => static function (string $body): bool {
+                    $payload = Json::decodeToArray($body);
+                    Assert::keyExists($payload, 'name');
+                    Assert::string($payload['name']);
+
+                    return $payload['name'] === self::LIST_NAME_TO_TRIGGER_MISSING_ID;
+                },
+            ],
+            'Post a new list and get an empty id' => [
+                'uri' => '/lists',
+                'method' => 'POST',
+                'body' => '{"id": 10,"name":"New List Name","created_at":"2021-07-14T19:19:07+00:00"}',
+                'type' => 'application/json',
+                'code' => 200,
+                'bodyMatcher' => static function (string $body): bool {
+                    $payload = Json::decodeToArray($body);
+                    Assert::keyExists($payload, 'name');
+                    Assert::string($payload['name']);
+
+                    return $payload['name'] === self::LIST_NAME_TO_TRIGGER_INVALID_ID;
+                },
             ],
         ];
     }
