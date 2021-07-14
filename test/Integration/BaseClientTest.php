@@ -6,9 +6,11 @@ namespace GSteel\Listless\Octopus\Test\Integration;
 
 use GSteel\Listless\Octopus\BaseClient;
 use GSteel\Listless\Octopus\Exception\InvalidApiKey;
+use GSteel\Listless\Octopus\Exception\MailingListNotFound;
 use GSteel\Listless\Octopus\Exception\MemberAlreadySubscribed;
 use GSteel\Listless\Octopus\Exception\MemberNotFound;
 use GSteel\Listless\Octopus\Exception\RequestFailure;
+use GSteel\Listless\Octopus\Exception\UnauthorisedRequest;
 use GSteel\Listless\Octopus\Util\Json;
 use GSteel\Listless\Octopus\Value\SubscriptionStatus;
 use GSteel\Listless\Value\EmailAddress;
@@ -320,5 +322,23 @@ class BaseClientTest extends RemoteIntegrationTestCase
         $body = Json::decodeToArray($body);
         self::assertArrayHasKey('status', $body, 'The message did not contain a status parameter');
         self::assertEquals($status->getValue(), $body['status'], 'The status did not match');
+    }
+
+    public function testThatListNotFoundMightMeanUnauthorised(): void
+    {
+        $this->expectException(UnauthorisedRequest::class);
+        $this->client->findMailingListById(ListId::fromString(MockServer::UNAUTHORISED_LIST_ID));
+    }
+
+    public function testThatListNotFoundWillThrowListNotFoundIfTheResponseWasSane(): void
+    {
+        $this->expectException(MailingListNotFound::class);
+        $this->client->findMailingListById(ListId::fromString(MockServer::LIST_ID_NOT_FOUND));
+    }
+
+    public function testThatListsCanBeRetrieved(): void
+    {
+        $list = $this->client->findMailingListById(ListId::fromString(MockServer::VALID_LIST));
+        self::assertEquals($list->listId()->toString(), MockServer::VALID_LIST);
     }
 }

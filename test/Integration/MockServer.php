@@ -32,6 +32,8 @@ final class MockServer
     public const WILL_BE_SUBSCRIBED_PENDING = 'new-pending@example.com';
     public const IS_EXISTING_CONTACT = 'already-subscribed@example.com';
     public const IS_SUBSCRIBED_WILL_CAUSE_INVALID_API_KEY = 'invalid-api-key@example.com';
+    public const UNAUTHORISED_LIST_ID = 'list-id-unauthorised';
+    public const LIST_ID_NOT_FOUND = 'list-not-found';
 
     private LoopInterface $loop;
     private HttpServer $server;
@@ -275,6 +277,30 @@ final class MockServer
 
                     return $payload['status'] === SubscriptionStatus::unsubscribed()->getValue();
                 },
+            ],
+            'Retrieve a list by its id' => [
+                'uri' => sprintf(
+                    '/lists/%s',
+                    self::VALID_LIST
+                ),
+                'method' => 'GET',
+                'body' => '{"id":"' . self::VALID_LIST . '","name":"Example List","double_opt_in":false,"fields":[{"tag":"EmailAddress","type":"TEXT","label":"Email address","fallback":null},{"tag":"FirstName","type":"TEXT","label":"First name","fallback":null},{"tag":"LastName","type":"TEXT","label":"Last name","fallback":null},{"tag":"ArbitraryText","type":"TEXT","label":"Arbitrary Text","fallback":"Foo"},{"tag":"NumericValue","type":"NUMBER","label":"Numeric Value","fallback":"42"}],"counts":{"pending":0,"subscribed":1,"unsubscribed":1},"created_at":"2021-01-01T01:00:00+00:00"}',
+                'type' => 'application/json',
+                'code' => 200,
+            ],
+            'Retrieve a list and get unauthorised response' => [
+                'uri' => sprintf('/lists/%s', self::UNAUTHORISED_LIST_ID),
+                'method' => 'GET',
+                'body' => '{"error":{"code":"UNAUTHORISED","message":"You\u0027re not authorised to perform that action."}}',
+                'type' => 'application/json',
+                'code' => 403,
+            ],
+            'Retrieve a non-existent list and get the documented error' => [
+                'uri' => sprintf('/lists/%s', self::LIST_ID_NOT_FOUND),
+                'method' => 'GET',
+                'body' => '{"error":{"code":"LIST_NOT_FOUND","message":"This is a fabricated response. The API does not return a 404"}}',
+                'type' => 'application/json',
+                'code' => 404,
             ],
         ];
     }

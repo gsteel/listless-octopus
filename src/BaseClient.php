@@ -8,11 +8,13 @@ use GSteel\Listless\EmailAddress;
 use GSteel\Listless\ListId;
 use GSteel\Listless\Octopus\Exception\ErrorFactory;
 use GSteel\Listless\Octopus\Exception\Exception;
+use GSteel\Listless\Octopus\Exception\MailingListNotFound;
 use GSteel\Listless\Octopus\Exception\MemberAlreadySubscribed;
 use GSteel\Listless\Octopus\Exception\MemberNotFound;
 use GSteel\Listless\Octopus\Exception\RequestFailure;
 use GSteel\Listless\Octopus\Util\Json;
 use GSteel\Listless\Octopus\Value\Contact;
+use GSteel\Listless\Octopus\Value\MailingList;
 use GSteel\Listless\Octopus\Value\SubscriptionStatus;
 use GSteel\Listless\SubscriberInformation;
 use GSteel\Listless\SubscriptionResult as SubscriptionResultContract;
@@ -242,5 +244,26 @@ final class BaseClient implements Client
         ), ['status' => $toStatus->getValue()]);
 
         return $this->contactFromResponse($response);
+    }
+
+    /**
+     * @throws Exception
+     * @throws MailingListNotFound if the list does not exist.
+     */
+    public function findMailingListById(ListId $id): MailingList
+    {
+        $response = $this->get(sprintf(
+            '/lists/%s',
+            $id->toString()
+        ));
+
+        return $this->mailingListFromResponse($response);
+    }
+
+    private function mailingListFromResponse(ResponseInterface $response): MailingList
+    {
+        $payload = Json::decodeToArray((string) $response->getBody());
+
+        return MailingList::fromArray($payload);
     }
 }

@@ -43,7 +43,7 @@ final class MailingList implements MailingListInterface
     }
 
     /**
-     * @param array<string, mixed> $data
+     * @param array<array-key, mixed> $data
      *
      * @throws AssertionFailed if any of the data provided in invalid.
      */

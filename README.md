@@ -16,6 +16,11 @@ This is a template repo.
 
 This is a template repo.
 
+## Weird stuff about the Email Octopus API
+
+* Attempt to get `/lists/invalid-list-id` and you get 403 Unauthorised instead of the documented error response. This also holds true if you fabricate a UUID that you know is wrong.
+* Attempt to get/post/put/delete a completely invalid uri like `/not-here` and you get an HTML 404 page instead of a JSON error response.
+
 ## License
 
 [MIT Licensed](LICENSE.md).

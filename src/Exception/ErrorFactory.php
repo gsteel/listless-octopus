@@ -20,6 +20,8 @@ final class ErrorFactory
     private const MEMBER_ALREADY_SUBSCRIBED = 'MEMBER_EXISTS_WITH_EMAIL_ADDRESS';
     private const GENERIC_NOT_FOUND = 'NOT_FOUND';
     private const INVALID_PARAMETERS = 'INVALID_PARAMETERS';
+    private const LIST_NOT_FOUND = 'LIST_NOT_FOUND';
+    private const UNAUTHORISED = 'UNAUTHORISED';
 
     public static function withHttpExchange(RequestInterface $request, ResponseInterface $response): ResponseError
     {
@@ -51,9 +53,16 @@ final class ErrorFactory
             return InvalidRequestParameters::new($request, $response);
         }
 
+        if ($code === self::LIST_NOT_FOUND) {
+            return MailingListNotFound::new($request, $response);
+        }
+
+        if ($code === self::UNAUTHORISED) {
+            return UnauthorisedRequest::new($request, $response);
+        }
+
         /**
          * Known codes not yet covered:
-         * - UNAUTHORISED
          * - UNKNOWN
          */
 
