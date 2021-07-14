@@ -58,7 +58,8 @@
     "autoload-dev": {
         "psr-4": {
             "GSteel\\Listless\\Octopus\\Test\\Unit\\": "test/Unit",
-            "GSteel\\Listless\\Octopus\\Test\\Integration\\": "test/Integration"
+            "GSteel\\Listless\\Octopus\\Test\\Integration\\": "test/Integration",
+            "GSteel\\Listless\\Octopus\\Test\\Smoke\\": "test/Smoke"
         }
     },
     "repositories": [
@@ -71,7 +72,7 @@
         "check": [
             "phpcs",
             "psalm",
-            "phpunit --coverage-xml=build/coverage/coverage-xml --log-junit=build/coverage/junit.xml",
+            "phpunit --coverage-xml=build/coverage/coverage-xml --log-junit=build/coverage/junit.xml --exclude-group=Smoke",
             "infection --skip-initial-tests --coverage=build/coverage"
         ],
         "clean": [

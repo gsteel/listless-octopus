@@ -33,7 +33,10 @@ jobs:
       - name: "Install latest dependencies"
         run: "composer update --no-interaction --no-progress"
 
+      - name: "Run Tests with Coverage"
+        run: "phpunit --coverage-xml=build/coverage/coverage-xml --log-junit=build/coverage/junit.xml --exclude-group=Smoke"
+
       - name: "Run mutation tests"
         run: |
           git fetch --depth=1 origin $GITHUB_BASE_REF
-          vendor/bin/infection --configuration=infection.json --git-diff-filter=AM --git-diff-base=origin/$GITHUB_BASE_REF --logger-github
+          vendor/bin/infection --configuration=infection.json --skip-initial-tests --coverage=build/coverage --git-diff-filter=AM --git-diff-base=origin/$GITHUB_BASE_REF --logger-github
