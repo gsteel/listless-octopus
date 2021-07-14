@@ -131,4 +131,21 @@ class ClientFactoryTest extends TestCase
 
         ($this->factory)($this->container);
     }
+
+    public function testAnAssertionErrorWillBeThrownWhenTheContainerSendsSomethingWeird(): void
+    {
+        $this->container->expects(self::exactly(2))
+            ->method('has')
+            ->willReturn(true);
+
+        $this->container->expects(self::exactly(2))
+            ->method('get')
+            ->willReturnMap([
+                ['config', ['email-octopus' => ['api-key' => 'foo']]],
+                [ClientInterface::class, 'Not the right thing'],
+            ]);
+
+        $this->expectException(AssertionFailed::class);
+        ($this->factory)($this->container);
+    }
 }

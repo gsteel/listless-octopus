@@ -15,7 +15,6 @@ use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
 
-use function assert;
 use function is_a;
 
 /**
@@ -69,7 +68,7 @@ final class ClientFactory
             ? $container->get($serviceName)
             : null;
 
-        assert(is_a($service, $serviceName) || $service === null);
+        Assert::true((is_a($service, $serviceName) || $service === null));
 
         return $service;
     }
