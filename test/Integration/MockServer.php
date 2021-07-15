@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace GSteel\Listless\Octopus\Test\Integration;
 
+use GSteel\Listless\Json;
 use GSteel\Listless\Octopus\Util\Assert;
-use GSteel\Listless\Octopus\Util\Json;
 use GSteel\Listless\Octopus\Value\SubscriptionStatus;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;

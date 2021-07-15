@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace GSteel\Listless\Octopus\Test\Integration;
 
+use GSteel\Listless\Json;
 use GSteel\Listless\Octopus\BaseClient;
 use GSteel\Listless\Octopus\Exception\AssertionFailed;
 use GSteel\Listless\Octopus\Exception\InvalidApiKey;
@@ -12,7 +13,6 @@ use GSteel\Listless\Octopus\Exception\MemberAlreadySubscribed;
 use GSteel\Listless\Octopus\Exception\MemberNotFound;
 use GSteel\Listless\Octopus\Exception\RequestFailure;
 use GSteel\Listless\Octopus\Exception\UnauthorisedRequest;
-use GSteel\Listless\Octopus\Util\Json;
 use GSteel\Listless\Octopus\Value\ListId;
 use GSteel\Listless\Octopus\Value\SubscriptionStatus;
 use GSteel\Listless\Value\EmailAddress;

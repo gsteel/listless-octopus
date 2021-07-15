@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace GSteel\Listless\Octopus\Exception;
 
-use GSteel\Listless\Octopus\Util\Json;
+use GSteel\Listless\Exception\JsonError;
+use GSteel\Listless\Json;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 

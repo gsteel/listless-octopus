@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace GSteel\Listless\Octopus\Value;
 
-use GSteel\Listless\Exception\InvalidArgument;
+use GSteel\Listless\Octopus\Exception\InvalidArgument;
 use GSteel\Listless\Octopus\Util\Assert;
 use GSteel\Listless\SubscriberInformation;
 
