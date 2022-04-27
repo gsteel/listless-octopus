@@ -37,8 +37,8 @@
         "php-http/curl-client": "^2.2",
         "phpunit/phpunit": "^9.5",
         "psalm/plugin-phpunit": "^0.16.1",
-        "react/child-process": "^0.6.3",
-        "react/http": "^1.4",
+        "react/child-process": "^0.6.4",
+        "react/http": "^1.6.0",
         "roave/security-advisories": "dev-latest",
         "vimeo/psalm": "^4.8"
     },
