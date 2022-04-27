@@ -58,7 +58,7 @@ final class MockServer
         $this->server = new HttpServer($this->loop, function (RequestInterface $request): ResponseInterface {
             return $this->handleRequest($request);
         });
-        $this->socket = new SocketServer(sprintf('127.0.0.1:%d', $port), [], $this->loop);
+        $this->socket = new SocketServer(sprintf('0.0.0.0:%d', $port), [], $this->loop);
         $this->server->listen($this->socket);
     }
 
