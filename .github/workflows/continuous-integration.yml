@@ -9,3 +9,22 @@ on:
 jobs:
   ci:
     uses: laminas/workflow-continuous-integration/.github/workflows/continuous-integration.yml@1.x
+  coverage:
+    name: PHPUnit Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+          extensions: pcov
+          coverage: pcov
+          ini-values: pcov.enabled=1
+      - uses: "ramsey/composer-install@2.1.0"
+      - run: php ./vendor/bin/phpunit --coverage-clover=coverage.xml
+
+      - uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage.xml
+          fail_ci_if_error: false
