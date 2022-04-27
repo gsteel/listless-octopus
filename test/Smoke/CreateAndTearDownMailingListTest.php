@@ -32,8 +32,6 @@ final class CreateAndTearDownMailingListTest extends TestCase
         $apiKey = getenv('OCTOPUS_API_KEY');
         if (! is_string($apiKey) || empty($apiKey)) {
             $this->markTestSkipped('No API Key is available in the environment variable `OCTOPUS_API_KEY`');
-
-            return;
         }
 
         $this->client = new BaseClient(
