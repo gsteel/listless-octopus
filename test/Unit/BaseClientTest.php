@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus\Test\Unit;
+namespace ListInterop\Octopus\Test\Unit;
 
-use GSteel\Listless\Octopus\BaseClient;
-use GSteel\Listless\Octopus\Test\Unit\Stub\CaseSensitiveEmail;
-use GSteel\Listless\Octopus\Test\Unit\Stub\UriFactory;
-use GSteel\Listless\Value\EmailAddress;
 use Laminas\Diactoros\RequestFactory;
 use Laminas\Diactoros\StreamFactory;
+use ListInterop\Octopus\BaseClient;
+use ListInterop\Octopus\Test\Unit\Stub\CaseSensitiveEmail;
+use ListInterop\Octopus\Test\Unit\Stub\UriFactory;
+use ListInterop\Value\EmailAddress;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientInterface;
 

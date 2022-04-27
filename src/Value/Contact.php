@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus\Value;
+namespace ListInterop\Octopus\Value;
 
 use DateTimeImmutable;
 use DateTimeInterface;
-use GSteel\Listless\EmailAddress as EmailAddressContract;
-use GSteel\Listless\Octopus\Util\Assert;
-use GSteel\Listless\Value\EmailAddress;
+use ListInterop\EmailAddress as EmailAddressContract;
+use ListInterop\Octopus\Util\Assert;
+use ListInterop\Value\EmailAddress;
 
 final class Contact
 {

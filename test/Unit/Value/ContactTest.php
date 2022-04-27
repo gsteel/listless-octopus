@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus\Test\Unit\Value;
+namespace ListInterop\Octopus\Test\Unit\Value;
 
 use Generator;
-use GSteel\Listless\Octopus\Exception\AssertionFailed;
-use GSteel\Listless\Octopus\Value\Contact;
-use GSteel\Listless\Octopus\Value\SubscriptionStatus;
+use ListInterop\Octopus\Exception\AssertionFailed;
+use ListInterop\Octopus\Value\Contact;
+use ListInterop\Octopus\Value\SubscriptionStatus;
 use PHPUnit\Framework\TestCase;
 
 use function array_keys;

@@ -1,18 +1,18 @@
 # Email Octopus PHP API Client
 
-[![Build Status](https://github.com/gsteel/listless-octopus/workflows/Continuous%20Integration/badge.svg)](https://github.com/gsteel/listless-octopus/actions?query=workflow%3A"Continuous+Integration")
+[![Build Status](https://github.com/list-interop/listless-octopus/workflows/Continuous%20Integration/badge.svg)](https://github.com/list-interop/listless-octopus/actions?query=workflow%3A"Continuous+Integration")
 
-[![codecov](https://codecov.io/gh/gsteel/listless-octopus/branch/main/graph/badge.svg)](https://codecov.io/gh/gsteel/listless-octopus)
-[![Psalm Type Coverage](https://shepherd.dev/github/gsteel/listless-octopus/coverage.svg)](https://shepherd.dev/github/gsteel/listless-octopus)
+[![codecov](https://codecov.io/gh/list-interop/listless-octopus/branch/main/graph/badge.svg)](https://codecov.io/gh/list-interop/listless-octopus)
+[![Psalm Type Coverage](https://shepherd.dev/github/list-interop/listless-octopus/coverage.svg)](https://shepherd.dev/github/list-interop/listless-octopus)
 
-[![Latest Stable Version](https://poser.pugx.org/gsteel/listless-octopus/v/stable)](https://packagist.org/packages/gsteel/listless-octopus)
-[![Total Downloads](https://poser.pugx.org/gsteel/listless-octopus/downloads)](https://packagist.org/packages/gsteel/listless-octopus)
+[![Latest Stable Version](https://poser.pugx.org/list-interop/listless-octopus/v/stable)](https://packagist.org/packages/list-interop/listless-octopus)
+[![Total Downloads](https://poser.pugx.org/list-interop/listless-octopus/downloads)](https://packagist.org/packages/list-interop/listless-octopus)
 
 ## Introduction
 
 This is an API Client for the [Email Octopus](https://emailoctopus.com) mailing list service for PHP versions 7.4 and currently 8.0.
 
-There are other clients around, written in PHP, which I haven't evaluated. They might be awesome. This client was born out of a desire to have a handy abstraction around mailing lists in general, so it implements interfaces found in [`gsteel/listless`](https://github.com/gsteel/listless). The other motivation for working on this client was to incorporate psalm and infection into my testing regime, so I needed something to work on to get to grips with these tools.
+There are other clients around, written in PHP, which I haven't evaluated. They might be awesome. This client was born out of a desire to have a handy abstraction around mailing lists in general, so it implements interfaces found in [`list-interop/listless`](https://github.com/list-interop/listless). The other motivation for working on this client was to incorporate psalm and infection into my testing regime, so I needed something to work on to get to grips with these tools.
 
 The client uses PSR17 and 18 standards, so you can bring your own preferred libs.
 
@@ -43,7 +43,7 @@ composer require laminas/laminas-diactoros
 You'll then be able to install this with:
 
 ```shell
-composer require gsteel/listless-octopus
+composer require list-interop/listless-octopus
 ```
 
 ## Usage
@@ -57,8 +57,8 @@ Ultimately, you'll need an API Key to get going, and assuming you can provide th
 ### Add a subscriber…
 
 ```php
-use GSteel\Listless\Octopus\Client;
-use GSteel\Listless\Value\EmailAddress;
+use ListInterop\Octopus\Client;
+use ListInterop\Value\EmailAddress;
 
 assert($client instanceof Client);
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus\Test\Integration;
+namespace ListInterop\Octopus\Test\Integration;
 
 use Http\Client\Curl\Client;
 use Laminas\Diactoros\RequestFactory;

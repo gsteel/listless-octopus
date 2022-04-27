@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus\Test\Unit\Value;
+namespace ListInterop\Octopus\Test\Unit\Value;
 
-use GSteel\Listless\Octopus\Exception\AssertionFailed;
-use GSteel\Listless\Octopus\Value\ListId;
+use ListInterop\Octopus\Exception\AssertionFailed;
+use ListInterop\Octopus\Value\ListId;
 use PHPUnit\Framework\TestCase;
 
 class ListIdTest extends TestCase

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus\Value;
+namespace ListInterop\Octopus\Value;
 
 use DateTimeImmutable;
 use DateTimeInterface;
-use GSteel\Listless\ListId;
-use GSteel\Listless\MailingList as MailingListInterface;
-use GSteel\Listless\Octopus\Exception\AssertionFailed;
-use GSteel\Listless\Octopus\Exception\InvalidArgument;
-use GSteel\Listless\Octopus\Util\Assert;
-use GSteel\Listless\Octopus\Value\ListId as ID;
+use ListInterop\ListId;
+use ListInterop\MailingList as MailingListInterface;
+use ListInterop\Octopus\Exception\AssertionFailed;
+use ListInterop\Octopus\Exception\InvalidArgument;
+use ListInterop\Octopus\Util\Assert;
+use ListInterop\Octopus\Value\ListId as ID;
 
 use function array_map;
 

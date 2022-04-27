@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus\Exception;
+namespace ListInterop\Octopus\Exception;
 
-use GSteel\Listless\Octopus\Util\Assert;
+use ListInterop\Octopus\Util\Assert;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use RuntimeException;

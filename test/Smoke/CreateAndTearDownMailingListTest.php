@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus\Test\Smoke;
+namespace ListInterop\Octopus\Test\Smoke;
 
-use GSteel\Listless\ListId;
-use GSteel\Listless\Octopus\BaseClient;
-use GSteel\Listless\Octopus\Exception\Exception;
-use GSteel\Listless\Octopus\Exception\MemberNotFound;
-use GSteel\Listless\Octopus\Value\MailingList;
-use GSteel\Listless\Value\EmailAddress;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Discovery\Psr18ClientDiscovery;
+use ListInterop\ListId;
+use ListInterop\Octopus\BaseClient;
+use ListInterop\Octopus\Exception\Exception;
+use ListInterop\Octopus\Exception\MemberNotFound;
+use ListInterop\Octopus\Value\MailingList;
+use ListInterop\Value\EmailAddress;
 use PHPUnit\Framework\TestCase;
 
 use function getenv;
@@ -32,8 +32,6 @@ final class CreateAndTearDownMailingListTest extends TestCase
         $apiKey = getenv('OCTOPUS_API_KEY');
         if (! is_string($apiKey) || empty($apiKey)) {
             $this->markTestSkipped('No API Key is available in the environment variable `OCTOPUS_API_KEY`');
-
-            return;
         }
 
         $this->client = new BaseClient(

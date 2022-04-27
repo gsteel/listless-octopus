@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus\Value;
+namespace ListInterop\Octopus\Value;
 
-use GSteel\Listless\Octopus\Exception\AssertionFailed;
-use GSteel\Listless\Octopus\Util\Assert;
+use ListInterop\Octopus\Exception\AssertionFailed;
+use ListInterop\Octopus\Util\Assert;
 
 /**
  * @psalm-immutable

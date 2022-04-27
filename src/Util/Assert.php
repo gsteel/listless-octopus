@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus\Util;
+namespace ListInterop\Octopus\Util;
 
-use GSteel\Listless\Octopus\Exception\AssertionFailed;
+use ListInterop\Octopus\Exception\AssertionFailed;
 use Webmozart\Assert\Assert as WebmozartAssert;
 
 final class Assert extends WebmozartAssert

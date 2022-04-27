@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus\Test\Unit\Exception;
+namespace ListInterop\Octopus\Test\Unit\Exception;
 
-use GSteel\Listless\Octopus\Exception\AssertionFailed;
-use GSteel\Listless\Octopus\Exception\RequestFailure;
 use Laminas\Diactoros\RequestFactory;
+use ListInterop\Octopus\Exception\AssertionFailed;
+use ListInterop\Octopus\Exception\RequestFailure;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientExceptionInterface;
 use RuntimeException;

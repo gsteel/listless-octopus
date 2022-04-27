@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus;
+namespace ListInterop\Octopus;
 
-use GSteel\Listless\EmailAddress;
-use GSteel\Listless\Json;
-use GSteel\Listless\ListId;
-use GSteel\Listless\Octopus\Exception\ErrorFactory;
-use GSteel\Listless\Octopus\Exception\Exception;
-use GSteel\Listless\Octopus\Exception\MailingListNotFound;
-use GSteel\Listless\Octopus\Exception\MemberAlreadySubscribed;
-use GSteel\Listless\Octopus\Exception\MemberNotFound;
-use GSteel\Listless\Octopus\Exception\RequestFailure;
-use GSteel\Listless\Octopus\Util\Assert;
-use GSteel\Listless\Octopus\Value\Contact;
-use GSteel\Listless\Octopus\Value\ListId as ID;
-use GSteel\Listless\Octopus\Value\MailingList;
-use GSteel\Listless\Octopus\Value\SubscriptionStatus;
-use GSteel\Listless\SubscriberInformation;
-use GSteel\Listless\SubscriptionResult as SubscriptionResultContract;
-use GSteel\Listless\Value\SubscriptionResult;
+use ListInterop\EmailAddress;
+use ListInterop\Json;
+use ListInterop\ListId;
+use ListInterop\Octopus\Exception\ErrorFactory;
+use ListInterop\Octopus\Exception\Exception;
+use ListInterop\Octopus\Exception\MailingListNotFound;
+use ListInterop\Octopus\Exception\MemberAlreadySubscribed;
+use ListInterop\Octopus\Exception\MemberNotFound;
+use ListInterop\Octopus\Exception\RequestFailure;
+use ListInterop\Octopus\Util\Assert;
+use ListInterop\Octopus\Value\Contact;
+use ListInterop\Octopus\Value\ListId as ID;
+use ListInterop\Octopus\Value\MailingList;
+use ListInterop\Octopus\Value\SubscriptionStatus;
+use ListInterop\SubscriberInformation;
+use ListInterop\SubscriptionResult as SubscriptionResultContract;
+use ListInterop\Value\SubscriptionResult;
 use Psr\Http\Client\ClientExceptionInterface as PsrHttpError;
 use Psr\Http\Client\ClientInterface as HttpClient;
 use Psr\Http\Message\RequestFactoryInterface;

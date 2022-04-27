@@ -1,7 +1,11 @@
 {
     "ignoreMsiWithNoMutations": true,
     "logs": {
-        "text": "build/infection/infection-log.txt"
+        "text": "php://stderr",
+        "github": true,
+        "stryker": {
+            "report": "/^\\d+\\.\\d+\\.x$/"
+        }
     },
     "minCoveredMsi": 100,
     "minMsi": 100,
@@ -12,5 +16,24 @@
             "src"
         ]
     },
-    "timeout": 10
+    "timeout": 10,
+    "mutators": {
+        "@default": true,
+        "DecrementInteger": {
+            "ignore": [
+                "ListInterop\\Octopus\\Exception\\RequestFailure::withPsrError::24"
+            ]
+        },
+        "IncrementInteger": {
+            "ignore": [
+                "ListInterop\\Octopus\\Exception\\RequestFailure::withPsrError::24"
+            ]
+        },
+        "ArrayItemRemoval": {
+            "ignore": [
+                "ListInterop\\Octopus\\Value\\MailingList::fromArray::52",
+                "ListInterop\\Octopus\\Value\\Contact::fromArray::44"
+            ]
+        }
+    }
 }

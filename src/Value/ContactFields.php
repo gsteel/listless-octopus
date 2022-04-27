@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus\Value;
+namespace ListInterop\Octopus\Value;
 
-use GSteel\Listless\Octopus\Exception\InvalidArgument;
-use GSteel\Listless\Octopus\Util\Assert;
-use GSteel\Listless\SubscriberInformation;
+use ListInterop\Octopus\Exception\InvalidArgument;
+use ListInterop\Octopus\Util\Assert;
+use ListInterop\SubscriberInformation;
 
 use function array_keys;
 use function gettype;

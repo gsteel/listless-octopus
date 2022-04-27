@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus\Test\Unit\Exception;
+namespace ListInterop\Octopus\Test\Unit\Exception;
 
-use GSteel\Listless\Octopus\Exception\ApiError;
-use GSteel\Listless\Octopus\Exception\ApiResourceNotFound;
-use GSteel\Listless\Octopus\Exception\ErrorFactory;
-use GSteel\Listless\Octopus\Exception\InvalidApiKey;
-use GSteel\Listless\Octopus\Exception\InvalidRequestParameters;
-use GSteel\Listless\Octopus\Exception\MemberNotFound;
 use Laminas\Diactoros\RequestFactory;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\TextResponse;
 use Laminas\Diactoros\ResponseFactory;
 use Laminas\Diactoros\StreamFactory;
+use ListInterop\Octopus\Exception\ApiError;
+use ListInterop\Octopus\Exception\ApiResourceNotFound;
+use ListInterop\Octopus\Exception\ErrorFactory;
+use ListInterop\Octopus\Exception\InvalidApiKey;
+use ListInterop\Octopus\Exception\InvalidRequestParameters;
+use ListInterop\Octopus\Exception\MemberNotFound;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;

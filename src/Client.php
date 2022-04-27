@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus;
+namespace ListInterop\Octopus;
 
-use GSteel\Listless\Action\IsSubscribed;
-use GSteel\Listless\Action\Subscribe;
-use GSteel\Listless\Action\Unsubscribe;
-use GSteel\Listless\EmailAddress;
-use GSteel\Listless\ListId;
-use GSteel\Listless\Octopus\Exception\Exception;
-use GSteel\Listless\Octopus\Exception\MailingListNotFound;
-use GSteel\Listless\Octopus\Exception\MemberAlreadySubscribed;
-use GSteel\Listless\Octopus\Exception\MemberNotFound;
-use GSteel\Listless\Octopus\Value\Contact;
-use GSteel\Listless\Octopus\Value\ListId as ID;
-use GSteel\Listless\Octopus\Value\MailingList;
-use GSteel\Listless\Octopus\Value\SubscriptionStatus;
-use GSteel\Listless\SubscriberInformation;
+use ListInterop\Action\IsSubscribed;
+use ListInterop\Action\Subscribe;
+use ListInterop\Action\Unsubscribe;
+use ListInterop\EmailAddress;
+use ListInterop\ListId;
+use ListInterop\Octopus\Exception\Exception;
+use ListInterop\Octopus\Exception\MailingListNotFound;
+use ListInterop\Octopus\Exception\MemberAlreadySubscribed;
+use ListInterop\Octopus\Exception\MemberNotFound;
+use ListInterop\Octopus\Value\Contact;
+use ListInterop\Octopus\Value\ListId as ID;
+use ListInterop\Octopus\Value\MailingList;
+use ListInterop\Octopus\Value\SubscriptionStatus;
+use ListInterop\SubscriberInformation;
 
 interface Client extends Subscribe, IsSubscribed, Unsubscribe
 {

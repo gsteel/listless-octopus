@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use GSteel\Listless\Octopus\Test\Integration\MockServer;
-use GSteel\Listless\Octopus\Util\Assert;
+use ListInterop\Octopus\Test\Integration\MockServer;
+use ListInterop\Octopus\Util\Assert;
 
 require __DIR__ . '/../../vendor/autoload.php';
 

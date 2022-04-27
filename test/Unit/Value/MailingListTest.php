@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus\Test\Unit\Value;
+namespace ListInterop\Octopus\Test\Unit\Value;
 
-use GSteel\Listless\Octopus\Exception\AssertionFailed;
-use GSteel\Listless\Octopus\Exception\InvalidArgument;
-use GSteel\Listless\Octopus\Value\FieldDefinition;
-use GSteel\Listless\Octopus\Value\FieldType;
-use GSteel\Listless\Octopus\Value\MailingList;
+use ListInterop\Octopus\Exception\AssertionFailed;
+use ListInterop\Octopus\Exception\InvalidArgument;
+use ListInterop\Octopus\Value\FieldDefinition;
+use ListInterop\Octopus\Value\FieldType;
+use ListInterop\Octopus\Value\MailingList;
 use PHPUnit\Framework\TestCase;
 
 use function array_keys;

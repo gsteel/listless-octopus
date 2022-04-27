@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus\Test\Integration;
+namespace ListInterop\Octopus\Test\Integration;
 
-use GSteel\Listless\Json;
-use GSteel\Listless\Octopus\Util\Assert;
-use GSteel\Listless\Octopus\Value\SubscriptionStatus;
+use ListInterop\Json;
+use ListInterop\Octopus\Util\Assert;
+use ListInterop\Octopus\Value\SubscriptionStatus;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use React\EventLoop\Loop;
 use React\EventLoop\LoopInterface;
+use React\Http\HttpServer;
 use React\Http\Message\Response;
-use React\Http\Server as HttpServer;
-use React\Socket\Server as SocketServer;
+use React\Socket\SocketServer;
 
 use function is_callable;
 use function md5;
@@ -58,7 +58,7 @@ final class MockServer
         $this->server = new HttpServer($this->loop, function (RequestInterface $request): ResponseInterface {
             return $this->handleRequest($request);
         });
-        $this->socket = new SocketServer($port, $this->loop);
+        $this->socket = new SocketServer(sprintf('0.0.0.0:%d', $port), [], $this->loop);
         $this->server->listen($this->socket);
     }
 
