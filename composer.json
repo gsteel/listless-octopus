@@ -33,6 +33,7 @@
         "ergebnis/composer-normalize": "^2.15",
         "infection/infection": "^0",
         "laminas/laminas-diactoros": "^2.6",
+        "maglnet/composer-require-checker": "^3.8",
         "php-http/curl-client": "^2.2",
         "phpunit/phpunit": "^9.5",
         "psalm/plugin-phpunit": "^0.16.1",
