@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus\Test\Unit\Value;
+namespace ListInterop\Octopus\Test\Unit\Value;
 
 use Generator;
-use GSteel\Listless\Octopus\Value\SubscriptionStatus;
+use ListInterop\Octopus\Value\SubscriptionStatus;
 use PHPUnit\Framework\TestCase;
 
 class SubscriptionStatusTest extends TestCase

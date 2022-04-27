@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus\Container;
+namespace ListInterop\Octopus\Container;
 
-use GSteel\Listless\Octopus\BaseClient;
-use GSteel\Listless\Octopus\Client;
-use GSteel\Listless\Octopus\Util\Assert;
+use ListInterop\Octopus\BaseClient;
+use ListInterop\Octopus\Client;
+use ListInterop\Octopus\Util\Assert;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Discovery\Psr18ClientDiscovery;
 use Psr\Container\ContainerInterface;

@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus\Test\Integration;
+namespace ListInterop\Octopus\Test\Integration;
 
-use GSteel\Listless\Json;
-use GSteel\Listless\Octopus\BaseClient;
-use GSteel\Listless\Octopus\Exception\AssertionFailed;
-use GSteel\Listless\Octopus\Exception\InvalidApiKey;
-use GSteel\Listless\Octopus\Exception\MailingListNotFound;
-use GSteel\Listless\Octopus\Exception\MemberAlreadySubscribed;
-use GSteel\Listless\Octopus\Exception\MemberNotFound;
-use GSteel\Listless\Octopus\Exception\RequestFailure;
-use GSteel\Listless\Octopus\Exception\UnauthorisedRequest;
-use GSteel\Listless\Octopus\Value\ListId;
-use GSteel\Listless\Octopus\Value\SubscriptionStatus;
-use GSteel\Listless\Value\EmailAddress;
-use GSteel\Listless\Value\SubscriptionResult;
+use ListInterop\Json;
+use ListInterop\Octopus\BaseClient;
+use ListInterop\Octopus\Exception\AssertionFailed;
+use ListInterop\Octopus\Exception\InvalidApiKey;
+use ListInterop\Octopus\Exception\MailingListNotFound;
+use ListInterop\Octopus\Exception\MemberAlreadySubscribed;
+use ListInterop\Octopus\Exception\MemberNotFound;
+use ListInterop\Octopus\Exception\RequestFailure;
+use ListInterop\Octopus\Exception\UnauthorisedRequest;
+use ListInterop\Octopus\Value\ListId;
+use ListInterop\Octopus\Value\SubscriptionStatus;
+use ListInterop\Value\EmailAddress;
+use ListInterop\Value\SubscriptionResult;
 use Laminas\Diactoros\StreamFactory;
 use Laminas\Diactoros\UriFactory;
 use Psr\Http\Client\ClientExceptionInterface;

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus\Test\Integration;
+namespace ListInterop\Octopus\Test\Integration;
 
-use GSteel\Listless\Json;
-use GSteel\Listless\Octopus\Util\Assert;
-use GSteel\Listless\Octopus\Value\SubscriptionStatus;
+use ListInterop\Json;
+use ListInterop\Octopus\Util\Assert;
+use ListInterop\Octopus\Value\SubscriptionStatus;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use React\EventLoop\Loop;

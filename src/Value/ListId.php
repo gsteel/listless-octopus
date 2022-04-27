@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus\Value;
+namespace ListInterop\Octopus\Value;
 
-use GSteel\Listless\ListId as ListIdContract;
-use GSteel\Listless\Octopus\Util\Assert;
+use ListInterop\ListId as ListIdContract;
+use ListInterop\Octopus\Util\Assert;
 
 /**
  * @psalm-immutable

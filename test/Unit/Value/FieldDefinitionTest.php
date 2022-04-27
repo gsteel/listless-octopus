@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus\Test\Unit\Value;
+namespace ListInterop\Octopus\Test\Unit\Value;
 
-use GSteel\Listless\Octopus\Exception\AssertionFailed;
-use GSteel\Listless\Octopus\Value\FieldDefinition;
-use GSteel\Listless\Octopus\Value\FieldType;
+use ListInterop\Octopus\Exception\AssertionFailed;
+use ListInterop\Octopus\Value\FieldDefinition;
+use ListInterop\Octopus\Value\FieldType;
 use PHPUnit\Framework\TestCase;
 
 use function array_keys;

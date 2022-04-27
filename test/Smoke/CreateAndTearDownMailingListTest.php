@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus\Test\Smoke;
+namespace ListInterop\Octopus\Test\Smoke;
 
-use GSteel\Listless\ListId;
-use GSteel\Listless\Octopus\BaseClient;
-use GSteel\Listless\Octopus\Exception\Exception;
-use GSteel\Listless\Octopus\Exception\MemberNotFound;
-use GSteel\Listless\Octopus\Value\MailingList;
-use GSteel\Listless\Value\EmailAddress;
+use ListInterop\ListId;
+use ListInterop\Octopus\BaseClient;
+use ListInterop\Octopus\Exception\Exception;
+use ListInterop\Octopus\Exception\MemberNotFound;
+use ListInterop\Octopus\Value\MailingList;
+use ListInterop\Value\EmailAddress;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Discovery\Psr18ClientDiscovery;
 use PHPUnit\Framework\TestCase;

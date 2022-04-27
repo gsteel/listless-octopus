@@ -1,9 +1,9 @@
 {
-    "name": "gsteel/listless-octopus",
+    "name": "list-interop/listless-octopus",
     "type": "library",
     "description": "Listless implementation for Email Octopus",
     "keywords": [],
-    "homepage": "https://github.com/gsteel/listless-octopus",
+    "homepage": "https://github.com/list-interop/listless-octopus",
     "license": "MIT",
     "authors": [
         {
@@ -12,9 +12,9 @@
         }
     ],
     "require": {
-        "php": "^7.4 || ~8.0",
+        "php": "^7.4 || ~8.0 || ~8.1",
         "ext-json": "*",
-        "gsteel/listless": "dev-main",
+        "list-interop/listless": "dev-main",
         "myclabs/php-enum": "^1.8",
         "php-http/discovery": "^1.11",
         "psr/container": "^1 || ^2",
@@ -42,7 +42,12 @@
         "vimeo/psalm": "^4.8"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "infection/extension-installer": true,
+            "ergebnis/composer-normalize": true
+        }
     },
     "extra": {
         "composer-normalize": {
@@ -52,20 +57,20 @@
     },
     "autoload": {
         "psr-4": {
-            "GSteel\\Listless\\Octopus\\": "src/"
+            "ListInterop\\Octopus\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "GSteel\\Listless\\Octopus\\Test\\Unit\\": "test/Unit",
-            "GSteel\\Listless\\Octopus\\Test\\Integration\\": "test/Integration",
-            "GSteel\\Listless\\Octopus\\Test\\Smoke\\": "test/Smoke"
+            "ListInterop\\Octopus\\Test\\Unit\\": "test/Unit",
+            "ListInterop\\Octopus\\Test\\Integration\\": "test/Integration",
+            "ListInterop\\Octopus\\Test\\Smoke\\": "test/Smoke"
         }
     },
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/gsteel/listless"
+            "url": "https://github.com/list-interop/listless"
         }
     ],
     "scripts": {

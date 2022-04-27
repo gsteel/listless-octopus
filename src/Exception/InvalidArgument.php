@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus\Exception;
+namespace ListInterop\Octopus\Exception;
 
-use GSteel\Listless\Octopus\Value\MailingList;
+use ListInterop\Octopus\Value\MailingList;
 use InvalidArgumentException;
 
 use function sprintf;

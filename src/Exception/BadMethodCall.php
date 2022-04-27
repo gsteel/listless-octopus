@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus\Exception;
+namespace ListInterop\Octopus\Exception;
 
 use BadMethodCallException;
 

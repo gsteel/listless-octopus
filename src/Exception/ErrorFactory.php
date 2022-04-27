@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus\Exception;
+namespace ListInterop\Octopus\Exception;
 
-use GSteel\Listless\Exception\JsonError;
-use GSteel\Listless\Json;
+use ListInterop\Exception\JsonError;
+use ListInterop\Json;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 

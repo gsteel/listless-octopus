@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus\Test\Unit\Stub;
+namespace ListInterop\Octopus\Test\Unit\Stub;
 
 use Laminas\Diactoros\Uri;
 use Psr\Http\Message\UriFactoryInterface;

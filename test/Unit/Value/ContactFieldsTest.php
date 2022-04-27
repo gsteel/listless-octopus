@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace GSteel\Listless\Octopus\Test\Unit\Value;
+namespace ListInterop\Octopus\Test\Unit\Value;
 
-use GSteel\Listless\Octopus\Exception\AssertionFailed;
-use GSteel\Listless\Octopus\Exception\InvalidArgument;
-use GSteel\Listless\Octopus\Value\ContactFields;
+use ListInterop\Octopus\Exception\AssertionFailed;
+use ListInterop\Octopus\Exception\InvalidArgument;
+use ListInterop\Octopus\Value\ContactFields;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
