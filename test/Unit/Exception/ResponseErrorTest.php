@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace ListInterop\Octopus\Test\Unit\Exception;
 
-use ListInterop\Octopus\Exception\AssertionFailed;
-use ListInterop\Octopus\Exception\ResponseError;
 use Laminas\Diactoros\RequestFactory;
 use Laminas\Diactoros\ResponseFactory;
+use ListInterop\Octopus\Exception\AssertionFailed;
+use ListInterop\Octopus\Exception\ResponseError;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;

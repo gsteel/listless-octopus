@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace ListInterop\Octopus\Test\Unit\Exception;
 
+use Laminas\Diactoros\RequestFactory;
+use Laminas\Diactoros\Response\HtmlResponse;
+use Laminas\Diactoros\Response\TextResponse;
+use Laminas\Diactoros\ResponseFactory;
+use Laminas\Diactoros\StreamFactory;
 use ListInterop\Octopus\Exception\ApiError;
 use ListInterop\Octopus\Exception\ApiResourceNotFound;
 use ListInterop\Octopus\Exception\ErrorFactory;
 use ListInterop\Octopus\Exception\InvalidApiKey;
 use ListInterop\Octopus\Exception\InvalidRequestParameters;
 use ListInterop\Octopus\Exception\MemberNotFound;
-use Laminas\Diactoros\RequestFactory;
-use Laminas\Diactoros\Response\HtmlResponse;
-use Laminas\Diactoros\Response\TextResponse;
-use Laminas\Diactoros\ResponseFactory;
-use Laminas\Diactoros\StreamFactory;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace ListInterop\Octopus\Test\Smoke;
 
+use Http\Discovery\Psr17FactoryDiscovery;
+use Http\Discovery\Psr18ClientDiscovery;
 use ListInterop\ListId;
 use ListInterop\Octopus\BaseClient;
 use ListInterop\Octopus\Exception\Exception;
 use ListInterop\Octopus\Exception\MemberNotFound;
 use ListInterop\Octopus\Value\MailingList;
 use ListInterop\Value\EmailAddress;
-use Http\Discovery\Psr17FactoryDiscovery;
-use Http\Discovery\Psr18ClientDiscovery;
 use PHPUnit\Framework\TestCase;
 
 use function getenv;

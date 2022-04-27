@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace ListInterop\Octopus\Exception;
 
-use ListInterop\Octopus\Value\MailingList;
 use InvalidArgumentException;
+use ListInterop\Octopus\Value\MailingList;
 
 use function sprintf;
 

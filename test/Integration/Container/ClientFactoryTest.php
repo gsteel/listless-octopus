@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace ListInterop\Octopus\Test\Integration\Container;
 
-use ListInterop\Octopus\Container\ClientFactory;
-use ListInterop\Octopus\Exception\AssertionFailed;
 use Http\Client\Curl\Client;
 use Laminas\Diactoros\RequestFactory;
 use Laminas\Diactoros\StreamFactory;
 use Laminas\Diactoros\UriFactory;
+use ListInterop\Octopus\Container\ClientFactory;
+use ListInterop\Octopus\Exception\AssertionFailed;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;

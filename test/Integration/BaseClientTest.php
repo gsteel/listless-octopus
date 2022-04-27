@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ListInterop\Octopus\Test\Integration;
 
+use Laminas\Diactoros\StreamFactory;
+use Laminas\Diactoros\UriFactory;
 use ListInterop\Json;
 use ListInterop\Octopus\BaseClient;
 use ListInterop\Octopus\Exception\AssertionFailed;
@@ -17,8 +19,6 @@ use ListInterop\Octopus\Value\ListId;
 use ListInterop\Octopus\Value\SubscriptionStatus;
 use ListInterop\Value\EmailAddress;
 use ListInterop\Value\SubscriptionResult;
-use Laminas\Diactoros\StreamFactory;
-use Laminas\Diactoros\UriFactory;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\RequestInterface;

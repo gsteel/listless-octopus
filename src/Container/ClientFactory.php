@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace ListInterop\Octopus\Container;
 
+use Http\Discovery\Psr17FactoryDiscovery;
+use Http\Discovery\Psr18ClientDiscovery;
 use ListInterop\Octopus\BaseClient;
 use ListInterop\Octopus\Client;
 use ListInterop\Octopus\Util\Assert;
-use Http\Discovery\Psr17FactoryDiscovery;
-use Http\Discovery\Psr18ClientDiscovery;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;

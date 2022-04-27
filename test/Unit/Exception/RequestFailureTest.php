@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace ListInterop\Octopus\Test\Unit\Exception;
 
+use Laminas\Diactoros\RequestFactory;
 use ListInterop\Octopus\Exception\AssertionFailed;
 use ListInterop\Octopus\Exception\RequestFailure;
-use Laminas\Diactoros\RequestFactory;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientExceptionInterface;
 use RuntimeException;

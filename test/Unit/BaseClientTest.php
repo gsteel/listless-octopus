@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace ListInterop\Octopus\Test\Unit;
 
+use Laminas\Diactoros\RequestFactory;
+use Laminas\Diactoros\StreamFactory;
 use ListInterop\Octopus\BaseClient;
 use ListInterop\Octopus\Test\Unit\Stub\CaseSensitiveEmail;
 use ListInterop\Octopus\Test\Unit\Stub\UriFactory;
 use ListInterop\Value\EmailAddress;
-use Laminas\Diactoros\RequestFactory;
-use Laminas\Diactoros\StreamFactory;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientInterface;
 
