@@ -31,7 +31,7 @@
         "ext-curl": "*",
         "doctrine/coding-standard": "^9.0",
         "ergebnis/composer-normalize": "^2.15",
-        "infection/infection": "^0",
+        "infection/infection": "^0.26",
         "laminas/laminas-diactoros": "^2.6",
         "maglnet/composer-require-checker": "^3.8",
         "php-http/curl-client": "^2.2",
